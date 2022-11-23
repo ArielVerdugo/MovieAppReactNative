@@ -2,10 +2,10 @@ import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export function MovieDetails() {
+export function MovieDetails({ navigation, route }) {
   return (
     <View>
-      <Text>{'Holis'}</Text>
+      <Text>{route.params.item.overview}</Text>
     </View>
   );
 }

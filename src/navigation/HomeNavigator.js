@@ -12,7 +12,7 @@ export function HomeNavigator() {
       <Stack.Screen
         component={MovieDetails}
         name={NAVIGATION.details}
-        options={{ title: 'Welcome' }}
+        options={{ title: 'Movie Detail' }}
       />
     </Stack.Navigator>
   );

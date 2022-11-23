@@ -13,7 +13,7 @@ export function DetailNavigator() {
         <Stack.Screen
           component={MovieDetails}
           name={NAVIGATION.details}
-          options={{ title: 'Welcome' }}
+          options={{ title: 'Movie Detail' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
