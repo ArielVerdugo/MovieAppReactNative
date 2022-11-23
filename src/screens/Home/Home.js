@@ -1,6 +1,6 @@
 /* eslint-disable react-native-a11y/has-valid-accessibility-ignores-invert-colors */
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, FlatList, Image, ActivityIndicator, TouchableHighlight } from 'react-native';
 import { Config } from 'react-native-config';
 import { useSelector } from 'react-redux';
