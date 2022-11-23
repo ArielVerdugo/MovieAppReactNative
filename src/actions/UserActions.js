@@ -1,5 +1,9 @@
+/* eslint-disable no-console */
+/* eslint-disable prettier/prettier */
 import { UserController } from '@/controllers';
 import { strings } from '@/localization';
+import { useQuery } from '@tanstack/react-query';
+
 
 export const TYPES = {
   CLEAR_STORE: 'CLEAR_STORE',
@@ -52,3 +56,64 @@ export const logout = () => async (dispatch, _, { demoMode, networkService }) =>
     dispatch(clearStore());
   }
 };
+
+export const generateSessionId = () => async (dispatch, _, { networkService }) => {
+  try {
+    const userController = new UserController(networkService);
+
+    const {data: { guestSessionId }} = await userController.getSessionId();
+    console.log(guestSessionId);
+  } catch ({ data }) {
+    dispatch(loginError(data?.error ?? strings.sessionId.invalidCredentials));
+  }
+};
+
+
+export const getMovies = async(dispatch, _, { demoMode, networkService }) =>{
+  try {
+    const userController = new UserController(networkService);
+    const {data:{results}} = await userController.getMovies();
+    console.log(results);
+    return results;
+  } catch ({data}){
+    console.log('entro al error');
+  }
+
+};
+
+export const UseGetAllmovies = () =>{
+  const {isLoading,data} = useQuery(['allMovies'],getMovies);
+  console.log(data);
+
+  return {data,isLoading};
+};
+
+//Version tratandom de logarme
+ /*export const login = (username, password) => async (dispatch, _, { demoMode, networkService }) => {
+   try {
+     //dispatch(loginRequest());
+     const userController = new UserController(networkService);
+
+     //llamo a la funcion que me devuelve el access token
+     //const {data} = await userController.getAccessToken();
+
+
+     //const {data: responseData} = await userController.getAccessToken();
+
+     //const {data: {request_token}} = await userController.getAccessToken();
+
+
+     const {data: {requestToken}} = await userController.getAccessToken();
+
+     console.log(requestToken);
+     //lo seteo en la sesion ver bien como acceder porque el accessToken.request_token esta mal
+     networkService.setAccessToken(data.request_token)
+     //const { data } = await userController.login({ username, password});
+
+     dispatch(loginSuccess(data.user));
+     //Guardar el token
+
+   } catch ({ data }) {
+     dispatch(loginError(data?.error ?? strings.login.invalidCredentials));
+   }
+ };*/
