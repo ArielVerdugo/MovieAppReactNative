@@ -27,7 +27,7 @@ export function Home({ navigation }) {
   const onMovie = ({ item }) => (
     <TouchableHighlight
       accessibilityRole="button"
-      onPress={() => navigation.navigate(NAVIGATION.login)}
+      onPress={() => navigation.navigate(NAVIGATION.details)}
     >
       <View style={styles.item}>
         <View style={styles.avatarContainer}>

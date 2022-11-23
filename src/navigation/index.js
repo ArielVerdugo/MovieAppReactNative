@@ -14,10 +14,10 @@ export function RootNavigator() {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer theme={theme[scheme]}>
+    <NavigationContainer theme={theme[scheme]}>
+      <QueryClientProvider client={queryClient}>
         {user ? <AppNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </NavigationContainer>
   );
 }
