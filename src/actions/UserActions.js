@@ -68,25 +68,15 @@ export const generateSessionId = () => async (dispatch, _, { networkService }) =
   }
 };
 
+/*export const getMovies = () => async(dispatch, _, {networkService }) =>{
 
-export const getMovies = async(dispatch, _, { demoMode, networkService }) =>{
-  try {
-    const userController = new UserController(networkService);
-    const {data:{results}} = await userController.getMovies();
-    console.log(results);
-    return results;
-  } catch ({data}){
-    console.log('entro al error');
-  }
+   const userController = new UserController(networkService);
 
-};
+   const { data : { results } } = await userController.getMovies();
+   console.log(results);
+   return results;
+ };*/
 
-export const UseGetAllmovies = () =>{
-  const {isLoading,data} = useQuery(['allMovies'],getMovies);
-  console.log(data);
-
-  return {data,isLoading};
-};
 
 //Version tratandom de logarme
  /*export const login = (username, password) => async (dispatch, _, { demoMode, networkService }) => {
