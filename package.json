@@ -53,7 +53,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.2",
     "@babel/runtime": "^7.17.2",
-    "react-native-codegen": "^0.0.18",
     "@react-native-community/eslint-config": "^3.0.1",
     "@testing-library/jest-native": "^4.0.4",
     "@testing-library/react-native": "^9.0.0",
@@ -70,6 +69,7 @@
     "eslint-plugin-testing-library": "^5.0.5",
     "jest": "^27.5.1",
     "metro-react-native-babel-preset": "^0.72.3",
+    "react-native-codegen": "^0.0.18",
     "react-test-renderer": "18.1.0",
     "redux-mock-store": "^1.5.4"
   }

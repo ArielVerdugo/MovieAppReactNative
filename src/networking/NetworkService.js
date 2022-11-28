@@ -6,6 +6,7 @@ import { resInterceptor } from '@/networking/interceptors';
 export class NetworkService {
   constructor() {
     this.client = applyCaseMiddleware(axios.create({ baseURL, headers }));
+    console.log(baseURL);
     this.client.interceptors.response.use(resInterceptor.onFulfill, resInterceptor.onReject);
   }
 
