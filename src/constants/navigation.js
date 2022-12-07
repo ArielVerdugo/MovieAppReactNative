@@ -3,9 +3,11 @@ export const NAVIGATION = {
   login: 'Login Screen',
   profile: 'Profile Screen',
   details: 'Detail Screen',
+  favorites: 'Favorites Screen',
 };
 
 export const TABS = {
   home: 'Home',
   profile: 'Profile',
+  favorites: 'Favorites',
 };
