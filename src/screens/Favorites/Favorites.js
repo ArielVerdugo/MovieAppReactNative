@@ -11,9 +11,7 @@ export function Favorites({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.formContainer, shadow.primary, { backgroundColor: colors.primary }]}>
-        <TextField value={''} />
-      </View>
+      <TextField value={''} />
     </View>
   );
 }

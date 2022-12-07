@@ -12,6 +12,7 @@ import { IMAGE_URL, routes } from '@/controllers/routes';
 import { NAVIGATION } from '@/constants';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
+import { favIcon } from '@/assets';
 
 export function Home({ navigation }) {
   const movieController = new MovieController(networkService);
