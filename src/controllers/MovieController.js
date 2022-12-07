@@ -1,11 +1,16 @@
 import { routes } from '@/controllers/routes';
-import { networkService } from '@/networking';
 
-const getMovies = () => {
-  return networkService.request({
-    method: 'GET',
-    url: routes.movies.getAllMovies,
-  });
-};
+//AGREGAR CONSTRUCTOR
 
-export { getMovies };
+export class MovieController {
+  constructor(networkService) {
+    this.networkService = networkService;
+  }
+
+  getMovies = () => {
+    return this.networkService.request({
+      method: 'GET',
+      url: routes.movies.getAllMovies,
+    });
+  };
+}

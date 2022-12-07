@@ -5,20 +5,17 @@ import { Text, View, FlatList, Image, ActivityIndicator, TouchableHighlight } fr
 import { Config } from 'react-native-config';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 import { strings } from '@/localization';
-import { getUser } from '@/selectors/UserSelectors';
 import { styles } from '@/screens/Home/Home.styles';
 import { typography } from '@/theme';
-import { getMovies } from '@/controllers/MovieController';
 import { IMAGE_URL, routes } from '@/controllers/routes';
 import { NAVIGATION } from '@/constants';
+import { networkService } from '@/networking';
+import { MovieController } from '@/controllers/MovieController';
 
 export function Home({ navigation }) {
-  const { colors } = useTheme();
-  const user = useSelector(getUser);
-  const { isLoading, data } = useQuery(['allMovies'], getMovies);
+  const movieController = new MovieController(networkService);
+  const { isLoading, data } = useQuery(['allMovies'], movieController.getMovies);
 
   if (isLoading) {
     return <ActivityIndicator />;
