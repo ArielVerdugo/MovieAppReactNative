@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 export function MovieDetails({ route }) {
   return (
     <View>
-      <Text>{route.params.item}</Text>
+      <Text>{route.params.item.overview}</Text>
     </View>
   );
 }
