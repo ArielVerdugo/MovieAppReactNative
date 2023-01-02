@@ -5,7 +5,7 @@ import { Favorites } from '@/screens/Favorites/Favorites';
 
 const Stack = createNativeStackNavigator();
 
-export function FavNavigator() {
+export function FavouritesNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen

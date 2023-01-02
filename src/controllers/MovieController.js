@@ -1,7 +1,5 @@
 import { routes } from '@/controllers/routes';
 
-//AGREGAR CONSTRUCTOR
-
 export class MovieController {
   constructor(networkService) {
     this.networkService = networkService;

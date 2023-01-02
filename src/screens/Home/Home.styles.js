@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
 
   avatarContainer: {
     borderRadius: 10,
-    height: 89,
-    width: 89,
+    height: 40,
+    width: 40,
     marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center',

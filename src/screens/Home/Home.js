@@ -1,31 +1,27 @@
-/* eslint-disable react-native-a11y/has-valid-accessibility-ignores-invert-colors */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, FlatList, Image, ActivityIndicator, TouchableHighlight } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
 import { styles } from '@/screens/Home/Home.styles';
-import { IMAGE_URL, routes } from '@/controllers/routes';
+import { IMAGE_URL } from '@/controllers/routes';
 import { NAVIGATION } from '@/constants';
-import { getFav } from '@/selectors/MovieSelectors';
+import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
 import { addIcon } from '@/assets';
 import { saveMovie } from '@/actions/MovieActions';
+import { isOneDayDiff } from '@/utils/utils';
+import { EMPTY_MOVIES, MOVIES } from '@/constants/en';
 
 export function Home({ navigation }) {
   const movieController = new MovieController(networkService);
   const [isConnected, setIsConected] = useState(false);
   const [date, setDate] = useState(new Date());
-  //const { isLoading, data } = useQuery(['allMovies'], movieController.getMovies, {
-  //cacheTime: 0,
-  //});
-
   const { isLoading, data, isError } = useQuery(['allMovies'], movieController.getMovies);
-
   const dispatch = useDispatch();
-  const moviesFav = useSelector(getFav);
+  const moviesFav = useSelector(getFavoriteMovies);
 
   useEffect(() => {
     if (!isError) {
@@ -37,78 +33,71 @@ export function Home({ navigation }) {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [isError]);
 
-  const dateDiffInDays = (a, b) => {
-    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-    if (Math.floor((utc2 - utc1) / _MS_PER_DAY) < 2) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const goDetails = useCallback(
+    (item) => {
+      navigation.navigate(NAVIGATION.details, { item: item });
+    },
+    [navigation]
+  );
+
+  const addMovieFavourites = useCallback(
+    (item) => {
+      if (moviesFav.includes(item, 0)) {
+        alert('ya está agregada');
+      } else {
+        dispatch(saveMovie(item));
+      }
+    },
+    [dispatch, moviesFav]
+  );
 
   if (isLoading) {
     return <ActivityIndicator />;
   }
 
-  const onMovie = ({ item }) => (
+  const Movie = ({ item }) => (
     <View>
-      <TouchableHighlight
-        accessibilityRole="button"
-        onPress={() => navigation.navigate(NAVIGATION.details, { item: item })}
-      >
-        <View style={styles.item}>
+      <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
+        <View style={styles.item} accessibilityIgnoresInvertColors={true}>
           <View style={styles.avatarContainer}>
             <Image style={styles.avatar} source={{ uri: `${IMAGE_URL + item.backdropPath}` }} />
           </View>
           <Text style={styles.name}>{item.originalTitle}</Text>
         </View>
       </TouchableHighlight>
-      <TouchableWithoutFeedback accessibilityRole="button" onPress={() => addMovieFavs(item)}>
+      <TouchableWithoutFeedback
+        accessibilityRole="button"
+        onPress={() => addMovieFavourites(item)}
+        accessibilityIgnoresInvertColors={true}
+      >
         <Image source={addIcon} />
       </TouchableWithoutFeedback>
     </View>
   );
 
-  const headerComponent = () => <Text style={styles.listHeadLine}>Películas</Text>;
+  const headerComponent = () => <Text style={styles.listHeadLine}>{MOVIES}</Text>;
 
-  const emptyComponent = () => <Text>No hay pelis disponibles capo</Text>;
+  const emptyComponent = () => <Text>{EMPTY_MOVIES}</Text>;
 
   const itemSeparator = () => <View style={styles.separator} />;
 
-  const addMovieFavs = (item) => {
-    if (moviesFav !== null) {
-      moviesFav.includes(item, 0) ? alert('ya está agregada') : dispatch(saveMovie(item));
-    } else {
-      dispatch(saveMovie(item));
-    }
-  };
-
-  // eslint-disable-next-line eqeqeq
   if (
-    isConnected == true ||
-    (isConnected != true && data != null && dateDiffInDays(date, new Date()))
+    isConnected === true ||
+    (isConnected !== true && data != null && isOneDayDiff(date, new Date()))
   ) {
     return (
-      <View>
-        <FlatList
-          ListHeaderComponentStyle={styles.listHeader}
-          ListHeaderComponent={headerComponent}
-          data={data.data.results}
-          renderItem={onMovie}
-          ItemSeparatorComponent={itemSeparator}
-          ListEmptyComponent={emptyComponent}
-        />
-      </View>
+      <FlatList
+        ListHeaderComponentStyle={styles.listHeader}
+        ListHeaderComponent={headerComponent}
+        data={data.data.results}
+        renderItem={Movie}
+        ItemSeparatorComponent={itemSeparator}
+        ListEmptyComponent={emptyComponent}
+      />
     );
   } else {
-    return (
-      <View>
-        <Text> NO HAY NADA QUE MOSTRAR </Text>
-      </View>
-    );
+    return <Text>{EMPTY_MOVIES}</Text>;
   }
 }

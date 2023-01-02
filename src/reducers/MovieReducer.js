@@ -7,10 +7,8 @@ export const movieReducer = (state = [], { payload, type }) => {
       arr.push(payload);
       return [...state, ...arr];
     case TYPES.DELETE_FAV:
-      const index = state.indexOf(payload);
-      state.splice(index, 1);
-      // no modificar el array, generar uno nuevo FILTER
-      return [...state];
+      var finalvalue = state.filter((value) => value !== payload);
+      return [...finalvalue];
     default:
       return state;
   }

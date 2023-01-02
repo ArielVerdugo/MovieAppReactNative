@@ -1,4 +1,3 @@
-/* eslint-disable react-native-a11y/has-valid-accessibility-ignores-invert-colors */
 import React from 'react';
 import { Text, View, FlatList, Image, TouchableHighlight } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -6,15 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { styles } from '@/screens/Home/Home.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { NAVIGATION } from '@/constants';
-import { getFav } from '@/selectors/MovieSelectors';
+import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { removeIcon } from '@/assets';
 import { deleteMovie } from '@/actions/MovieActions';
+import { TITLE_FAV_MOVIES, EMPTY_FAV_MOVIES } from '@/constants/en';
 
 export function Favorites({ navigation }) {
   const dispatch = useDispatch();
 
-  const onFavMovie = ({ item }) => (
-    <View>
+  const FavMovie = ({ item }) => (
+    <View accessibilityIgnoresInvertColors={true}>
       <TouchableHighlight
         accessibilityRole="button"
         onPress={() => navigation.navigate(NAVIGATION.details, { item: item })}
@@ -32,9 +32,9 @@ export function Favorites({ navigation }) {
     </View>
   );
 
-  const headerComponent = () => <Text style={styles.listHeadLine}>Películas Favoritas</Text>;
+  const headerComponent = () => <Text style={styles.listHeadLine}>{TITLE_FAV_MOVIES}</Text>;
 
-  const emptyComponent = () => <Text>No tenés pelis favoritas</Text>;
+  const emptyComponent = () => <Text>{EMPTY_FAV_MOVIES}</Text>;
 
   const itemSeparator = () => <View style={styles.separator} />;
 
@@ -42,20 +42,18 @@ export function Favorites({ navigation }) {
     dispatch(deleteMovie(item));
   };
 
-  var moviesFav = useSelector(getFav);
+  var moviesFav = useSelector(getFavoriteMovies);
 
   if (moviesFav != null) {
     return (
-      <View>
-        <FlatList
-          ListHeaderComponentStyle={styles.listHeader}
-          ListHeaderComponent={headerComponent}
-          data={Object.values(moviesFav)}
-          renderItem={onFavMovie}
-          ItemSeparatorComponent={itemSeparator}
-          ListEmptyComponent={emptyComponent}
-        />
-      </View>
+      <FlatList
+        ListHeaderComponentStyle={styles.listHeader}
+        ListHeaderComponent={headerComponent}
+        data={Object.values(moviesFav)}
+        renderItem={FavMovie}
+        ItemSeparatorComponent={itemSeparator}
+        ListEmptyComponent={emptyComponent}
+      />
     );
   }
 }

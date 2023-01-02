@@ -17,7 +17,7 @@ export const en = {
     invalidCredentials: 'Invalid credentials',
   },
   sessionId: {
-    invalidCredentials: 'No se genero el sessionId',
+    invalidCredentials: 'Invalid credentials',
   },
 
   profile: {
