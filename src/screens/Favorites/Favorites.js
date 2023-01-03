@@ -13,7 +13,7 @@ import { TITLE_FAV_MOVIES, EMPTY_FAV_MOVIES } from '@/constants/en';
 export function Favorites({ navigation }) {
   const dispatch = useDispatch();
 
-  const FavMovie = ({ item }) => (
+  const FavouriteMovie = ({ item }) => (
     <View accessibilityIgnoresInvertColors={true}>
       <TouchableHighlight
         accessibilityRole="button"
@@ -50,7 +50,7 @@ export function Favorites({ navigation }) {
         ListHeaderComponentStyle={styles.listHeader}
         ListHeaderComponent={headerComponent}
         data={Object.values(moviesFav)}
-        renderItem={FavMovie}
+        renderItem={FavouriteMovie}
         ItemSeparatorComponent={itemSeparator}
         ListEmptyComponent={emptyComponent}
       />
