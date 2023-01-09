@@ -97,6 +97,7 @@ export const styles = StyleSheet.create({
 
   container_type_movies_header: {
     flexDirection: 'row',
+    alignItems: 'baseline',
   },
 
   container_header_content: {
@@ -105,10 +106,36 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
 
-  text: {
+  /*text: {
     color: 'white',
     fontSize: 12,
-    paddingLeft: 40,
+    marginLeft: 40,
+  },*/
+
+  text_kids: {
+    color: 'white',
+    fontSize: 12,
+    flex: 0.3,
+    textAlign: 'right',
+  },
+
+  textFantasy: {
+    color: 'white',
+    fontSize: 12,
+    flex: 0.4,
+    textAlign: 'center',
+  },
+
+  textAction: {
+    color: 'white',
+    fontSize: 12,
+    flex: 0.2,
+    textAlign: 'left',
+  },
+
+  content_circle: {
+    flex: 0.2,
+    alignItems: 'center',
   },
 
   circle: {
@@ -117,20 +144,16 @@ export const styles = StyleSheet.create({
     borderRadius: 8 / 2,
     backgroundColor: 'white',
     fontWeight: 'bold',
-    marginLeft: 35,
     borderWidth: 1,
-    marginTop: 5,
   },
 
   banner: {
+    width: '100%',
     fontSize: 13,
-    marginLeft: 90,
-    paddingLeft: 60,
-    paddingRight: 60,
-    marginTop: 40,
+    textAlign: 'center',
+    marginTop: 20,
     paddingTop: 5,
     paddingBottom: 5,
-    position: 'absolute',
     color: 'rgba(5, 130, 255, 1)',
     backgroundColor: 'rgba(5, 120, 255, 0.4)',
   },
@@ -139,7 +162,7 @@ export const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     marginLeft: 75,
-    marginTop: 80,
+    marginTop: 30,
   },
 
   plus_icon: {

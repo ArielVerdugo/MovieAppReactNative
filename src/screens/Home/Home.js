@@ -144,11 +144,15 @@ export function Home({ navigation }) {
             <LinearGradient colors={['#00000000', '#000000']} style={styles.gradientHeader}>
               <View style={styles.container_header_content}>
                 <View style={styles.container_type_movies_header}>
-                  <Text style={styles.text}>{KIDS}</Text>
-                  <View style={styles.circle} />
-                  <Text style={styles.text}>{FANTASY_MOVIE}</Text>
-                  <View style={styles.circle} />
-                  <Text style={styles.text}>{ACTION}</Text>
+                  <Text style={styles.text_kids}>{KIDS}</Text>
+                  <View style={styles.content_circle}>
+                    <View style={styles.circle} />
+                  </View>
+                  <Text style={styles.textFantasy}>{FANTASY_MOVIE}</Text>
+                  <View style={styles.content_circle}>
+                    <View style={styles.circle} />
+                  </View>
+                  <Text style={styles.textAction}>{ACTION}</Text>
                 </View>
                 <Text style={styles.banner}>{MOVY_ORIGINAL}</Text>
                 <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
