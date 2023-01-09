@@ -156,26 +156,15 @@ export function Home({ navigation }) {
                 </View>
                 <Text style={styles.banner}>{MOVY_ORIGINAL}</Text>
                 <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
-                  <Image
-                    style={styles.plus_icon}
-                    source={require(icon_plus)}
-                    accessibilityIgnoresInvertColors={true}
-                  />
-                  <Image
-                    style={styles.play_icon}
-                    source={require(icon_play)}
-                    accessibilityIgnoresInvertColors={true}
-                  />
-                  <Image
-                    style={styles.info_icon}
-                    source={require(icon_info)}
-                    accessibilityIgnoresInvertColors={true}
-                  />
-                </View>
-                <View style={styles.container_icon_text} accessibilityIgnoresInvertColors={true}>
-                  <Text style={styles.icon_text_plus}>{MY_LIST}</Text>
-                  <Text style={styles.icon_text_play}>{PLAY}</Text>
-                  <Text style={styles.icon_text_info}>{INFO}</Text>
+                  <View style={styles.container_plus_icon}>
+                    <Image style={styles.plus_icon} source={require(icon_plus)} />
+                  </View>
+                  <View style={styles.container_play_icon}>
+                    <Image style={styles.plus_icon} source={require(icon_play)} />
+                  </View>
+                  <View style={styles.container_info_icon}>
+                    <Image style={styles.info_icon} source={require(icon_info)} />
+                  </View>
                 </View>
               </View>
             </LinearGradient>

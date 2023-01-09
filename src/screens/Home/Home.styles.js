@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
   },
 
   image: {
-    height: 500,
+    height: 400,
   },
   container_title_all_movies: {
     color: 'white',
@@ -101,8 +101,8 @@ export const styles = StyleSheet.create({
   },
 
   container_header_content: {
-    height: 190,
     position: 'absolute',
+    width: '100%',
     bottom: 0,
   },
 
@@ -115,14 +115,14 @@ export const styles = StyleSheet.create({
   text_kids: {
     color: 'white',
     fontSize: 12,
-    flex: 0.3,
+    flex: 0.2,
     textAlign: 'right',
   },
 
   textFantasy: {
     color: 'white',
     fontSize: 12,
-    flex: 0.4,
+    flex: 0.3,
     textAlign: 'center',
   },
 
@@ -148,7 +148,6 @@ export const styles = StyleSheet.create({
   },
 
   banner: {
-    width: '100%',
     fontSize: 13,
     textAlign: 'center',
     marginTop: 20,
@@ -159,15 +158,31 @@ export const styles = StyleSheet.create({
   },
 
   container_icons: {
-    height: 50,
     flexDirection: 'row',
-    marginLeft: 75,
     marginTop: 30,
   },
 
+  container_plus_icon: {
+    flex: 0.33,
+    alignItems: 'flex-end',
+  },
+
+  container_play_icon: {
+    flex: 0.2,
+    alignItems: 'flex-end',
+  },
+
+  container_info_icon: {
+    flex: 0.2,
+    alignItems: 'flex-end',
+  },
+
   plus_icon: {
-    alignContent: 'flex-start',
-    marginLeft: 10,
+    alignContent: 'center',
+  },
+
+  info_icon: {
+    alignContent: 'center',
   },
 
   play_icon: {
@@ -175,19 +190,16 @@ export const styles = StyleSheet.create({
     marginLeft: 60,
   },
 
-  info_icon: {
-    marginLeft: 65,
-  },
-
   container_icon_text: {
     height: 100,
     flexDirection: 'row',
+    marginTop: 12,
+    marginLeft: 85,
   },
 
   icon_text_plus: {
     color: 'white',
     fontSize: 12,
-    marginLeft: 85,
   },
   icon_text_play: {
     color: 'white',
