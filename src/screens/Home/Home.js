@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   Text,
   View,
@@ -12,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '@/screens/Home/Home.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { NAVIGATION } from '@/constants';
@@ -19,10 +21,9 @@ import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
 import { addFavoritesIcon } from '@/assets';
-import { saveMovie } from '@/actions/MovieActions';
+import { saveMovie, deleteMovie } from '@/actions/MovieActions';
 import { isOneDayDiff } from '@/utils/utils';
 import { EMPTY_MOVIES, MOVIES } from '@/constants/en';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const imgae_background =
   '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/background_home.png/';
@@ -94,11 +95,34 @@ export function Home({ navigation }) {
     </View>
   );
 
+  const MovieFavorites = ({ item }) => (
+    <View style={styles.container_items_movies}>
+      <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
+        <Image
+          style={styles.avatar}
+          accessibilityIgnoresInvertColors={true}
+          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
+        />
+      </TouchableHighlight>
+      <TouchableWithoutFeedback
+        accessibilityRole="button"
+        onPress={() => removeMovieFavs(item)}
+        accessibilityIgnoresInvertColors={true}
+      >
+        <Image source={addFavoritesIcon} />
+      </TouchableWithoutFeedback>
+    </View>
+  );
+
   const headerComponent = () => <Text style={styles.listHeadLine}>{MOVIES}</Text>;
 
   const emptyComponent = () => <Text>{EMPTY_MOVIES}</Text>;
 
   const itemSeparator = () => <View style={styles.separator} />;
+
+  const removeMovieFavs = (item) => {
+    dispatch(deleteMovie(item));
+  };
 
   if (
     isConnected === true ||
@@ -120,38 +144,43 @@ export function Home({ navigation }) {
             style={styles.image}
             resizeMode="cover"
           >
-            <View style={styles.container_header_content}>
-              <View style={styles.container_type_movies_header}>
-                <Text style={styles.text}>Kids</Text>
-                <View style={styles.circle} />
-                <Text style={styles.text}>Fantasy Movie</Text>
-                <View style={styles.circle} />
-                <Text style={styles.text}>Action</Text>
+            <LinearGradient
+              colors={['#00000000', '#000000']}
+              style={{ height: '100%', width: '100%' }}
+            >
+              <View style={styles.container_header_content}>
+                <View style={styles.container_type_movies_header}>
+                  <Text style={styles.text}>Kids</Text>
+                  <View style={styles.circle} />
+                  <Text style={styles.text}>Fantasy Movie</Text>
+                  <View style={styles.circle} />
+                  <Text style={styles.text}>Action</Text>
+                </View>
+                <Text style={styles.banner}>MOVY ORIGINAL</Text>
+                <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
+                  <Image
+                    style={styles.plus_icon}
+                    source={require(icon_plus)}
+                    accessibilityIgnoresInvertColors={true}
+                  />
+                  <Image
+                    style={styles.play_icon}
+                    source={require(icon_play)}
+                    accessibilityIgnoresInvertColors={true}
+                  />
+                  <Image
+                    style={styles.info_icon}
+                    source={require(icon_info)}
+                    accessibilityIgnoresInvertColors={true}
+                  />
+                </View>
+                <View style={styles.container_icon_text} accessibilityIgnoresInvertColors={true}>
+                  <Text style={styles.icon_text_plus}>My list</Text>
+                  <Text style={styles.icon_text_play}>Play</Text>
+                  <Text style={styles.icon_text_info}>Info</Text>
+                </View>
               </View>
-              <Text style={styles.banner}>MOVY ORIGINAL</Text>
-              <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
-                <Image
-                  style={styles.plus_icon}
-                  source={require(icon_plus)}
-                  accessibilityIgnoresInvertColors={true}
-                />
-                <Image
-                  style={styles.play_icon}
-                  source={require(icon_play)}
-                  accessibilityIgnoresInvertColors={true}
-                />
-                <Image
-                  style={styles.info_icon}
-                  source={require(icon_info)}
-                  accessibilityIgnoresInvertColors={true}
-                />
-              </View>
-              <View style={styles.container_icon_text} accessibilityIgnoresInvertColors={true}>
-                <Text style={styles.icon_text_plus}>My list</Text>
-                <Text style={styles.icon_text_play}>Play</Text>
-                <Text style={styles.icon_text_info}>Info</Text>
-              </View>
-            </View>
+            </LinearGradient>
           </ImageBackground>
           <Text style={styles.container_title_all_movies}>{'All Movies'}</Text>
           <FlatList
@@ -164,8 +193,8 @@ export function Home({ navigation }) {
           <Text style={styles.container_title_all_movies}>{'My List'}</Text>
           <FlatList
             horizontal={true}
-            data={data.data.results}
-            renderItem={Movie}
+            data={moviesFav}
+            renderItem={MovieFavorites}
             ListEmptyComponent={emptyComponent}
             style={styles.container_movies}
           />
