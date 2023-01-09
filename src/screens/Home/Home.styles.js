@@ -19,24 +19,26 @@ export const styles = StyleSheet.create({
   },
 
   item: {
-    flex: 1,
-    flexDirection: 'row',
+    width: 120,
+    height: 50,
     alignItems: 'center',
-    paddingVertical: 13,
+  },
+
+  itemText: {
+    fontSize: 10,
+    color: 'white',
+    textAlign: 'center',
   },
 
   avatarContainer: {
-    borderRadius: 10,
-    height: 40,
-    width: 40,
-    marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   avatar: {
-    height: 55,
-    width: 55,
+    height: 130,
+    width: 90,
+    marginLeft: 3,
   },
 
   name: {
@@ -48,19 +50,56 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000000',
+    flexDirection: 'column',
   },
-  image: {
+
+  container_items_movies: {
     flex: 1,
-    width: '100%',
-    height: '60%',
-    justifyContent: 'center',
+    backgroundColor: '#000000',
+    flexDirection: 'column',
   },
+
+  safe_area: {
+    flex: 1,
+  },
+
+  image: {
+    height: 400,
+  },
+  container_title_all_movies: {
+    color: 'white',
+    paddingTop: 10,
+    paddingLeft: 40,
+    fontSize: 18,
+  },
+
+  container_title_favorite_movies: {
+    color: 'white',
+    fontSize: 18,
+  },
+
+  container_movies: {
+    marginTop: 10,
+    marginLeft: 35,
+  },
+
   container_text: {
-    height: 100,
+    height: '10%',
     flexDirection: 'row',
     position: 'absolute',
     bottom: 30,
   },
+
+  container_type_movies_header: {
+    flexDirection: 'row',
+  },
+
+  container_header_content: {
+    height: 170,
+    position: 'absolute',
+    bottom: 0,
+  },
+
   text: {
     color: 'white',
     fontSize: 12,
@@ -78,32 +117,22 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
   },
 
-  container_banner: {
-    height: 100,
-    flexDirection: 'row',
-    position: 'absolute',
-    bottom: 1,
-  },
-
   banner: {
     fontSize: 13,
     marginLeft: 90,
     paddingLeft: 60,
     paddingRight: 60,
-    marginTop: 10,
+    marginTop: 40,
     position: 'absolute',
     color: 'rgba(5, 130, 255, 1)',
     backgroundColor: 'rgba(5, 120, 255, 0.4)',
-    paddingBottom: 5,
   },
 
   container_icons: {
-    height: 100,
+    height: 50,
     flexDirection: 'row',
-    position: 'absolute',
-    bottom: 1,
-    paddingTop: 60,
     marginLeft: 75,
+    marginTop: 70,
   },
 
   plus_icon: {
@@ -123,7 +152,6 @@ export const styles = StyleSheet.create({
   container_icon_text: {
     height: 100,
     flexDirection: 'row',
-    position: 'absolute',
   },
 
   icon_text_plus: {

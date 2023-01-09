@@ -9,7 +9,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
 import { styles } from '@/screens/Home/Home.styles';
@@ -18,10 +18,11 @@ import { NAVIGATION } from '@/constants';
 import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
-import { addIcon } from '@/assets';
+import { addFavoritesIcon } from '@/assets';
 import { saveMovie } from '@/actions/MovieActions';
 import { isOneDayDiff } from '@/utils/utils';
 import { EMPTY_MOVIES, MOVIES } from '@/constants/en';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const imgae_background =
   '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/background_home.png/';
@@ -75,21 +76,20 @@ export function Home({ navigation }) {
   }
 
   const Movie = ({ item }) => (
-    <View>
+    <View style={styles.container_items_movies}>
       <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
-        <View style={styles.item} accessibilityIgnoresInvertColors={true}>
-          <View style={styles.avatarContainer}>
-            <Image style={styles.avatar} source={{ uri: `${IMAGE_URL + item.backdropPath}` }} />
-          </View>
-          <Text style={styles.name}>{item.originalTitle}</Text>
-        </View>
+        <Image
+          style={styles.avatar}
+          accessibilityIgnoresInvertColors={true}
+          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
+        />
       </TouchableHighlight>
       <TouchableWithoutFeedback
         accessibilityRole="button"
         onPress={() => addMovieFavourites(item)}
         accessibilityIgnoresInvertColors={true}
       >
-        <Image source={addIcon} />
+        <Image source={addFavoritesIcon} />
       </TouchableWithoutFeedback>
     </View>
   );
@@ -113,44 +113,64 @@ export function Home({ navigation }) {
         ItemSeparatorComponent={itemSeparator}
         ListEmptyComponent={emptyComponent}
       />*/
-      <View style={styles.container}>
-        <ImageBackground source={require(imgae_background)} resizeMode="cover" style={styles.image}>
-          <View>
-            <View style={styles.container_text}>
-              <Text style={styles.text}>Kids</Text>
-              <View style={styles.circle} />
-              <Text style={styles.text}>Fantasy Movie</Text>
-              <View style={styles.circle} />
-              <Text style={styles.text}>Action</Text>
-            </View>
-            <View style={styles.container_banner}>
+      <SafeAreaView style={styles.safe_area}>
+        <ScrollView style={styles.container}>
+          <ImageBackground
+            source={require(imgae_background)}
+            style={styles.image}
+            resizeMode="cover"
+          >
+            <View style={styles.container_header_content}>
+              <View style={styles.container_type_movies_header}>
+                <Text style={styles.text}>Kids</Text>
+                <View style={styles.circle} />
+                <Text style={styles.text}>Fantasy Movie</Text>
+                <View style={styles.circle} />
+                <Text style={styles.text}>Action</Text>
+              </View>
               <Text style={styles.banner}>MOVY ORIGINAL</Text>
+              <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
+                <Image
+                  style={styles.plus_icon}
+                  source={require(icon_plus)}
+                  accessibilityIgnoresInvertColors={true}
+                />
+                <Image
+                  style={styles.play_icon}
+                  source={require(icon_play)}
+                  accessibilityIgnoresInvertColors={true}
+                />
+                <Image
+                  style={styles.info_icon}
+                  source={require(icon_info)}
+                  accessibilityIgnoresInvertColors={true}
+                />
+              </View>
+              <View style={styles.container_icon_text} accessibilityIgnoresInvertColors={true}>
+                <Text style={styles.icon_text_plus}>My list</Text>
+                <Text style={styles.icon_text_play}>Play</Text>
+                <Text style={styles.icon_text_info}>Info</Text>
+              </View>
             </View>
-            <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
-              <Image
-                style={styles.plus_icon}
-                source={require(icon_plus)}
-                accessibilityIgnoresInvertColors={true}
-              />
-              <Image
-                style={styles.play_icon}
-                source={require(icon_play)}
-                accessibilityIgnoresInvertColors={true}
-              />
-              <Image
-                style={styles.info_icon}
-                source={require(icon_info)}
-                accessibilityIgnoresInvertColors={true}
-              />
-            </View>
-            <View style={styles.container_icon_text} accessibilityIgnoresInvertColors={true}>
-              <Text style={styles.icon_text_plus}>My list</Text>
-              <Text style={styles.icon_text_play}>Play</Text>
-              <Text style={styles.icon_text_info}>Info</Text>
-            </View>
-          </View>
-        </ImageBackground>
-      </View>
+          </ImageBackground>
+          <Text style={styles.container_title_all_movies}>{'All Movies'}</Text>
+          <FlatList
+            horizontal={true}
+            data={data.data.results}
+            renderItem={Movie}
+            ListEmptyComponent={emptyComponent}
+            style={styles.container_movies}
+          />
+          <Text style={styles.container_title_all_movies}>{'My List'}</Text>
+          <FlatList
+            horizontal={true}
+            data={data.data.results}
+            renderItem={Movie}
+            ListEmptyComponent={emptyComponent}
+            style={styles.container_movies}
+          />
+        </ScrollView>
+      </SafeAreaView>
     );
   } else {
     return <Text>{EMPTY_MOVIES}</Text>;
