@@ -20,12 +20,22 @@ import { NAVIGATION } from '@/constants';
 import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
-import { addFavoritesIcon } from '@/assets';
+import { addFavoriteMovieIcon, removeFavoriteMovieIcon } from '@/assets';
 import { saveMovie, deleteMovie } from '@/actions/MovieActions';
 import { isOneDayDiff } from '@/utils/utils';
-import { EMPTY_MOVIES, MOVIES } from '@/constants/en';
+import {
+  EMPTY_MOVIES,
+  KIDS,
+  FANTASY_MOVIE,
+  ACTION,
+  MOVY_ORIGINAL,
+  MY_LIST,
+  PLAY,
+  INFO,
+  ALL_MOVIES,
+} from '@/constants/en';
 
-const imgae_background =
+const image_background =
   '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/background_home.png/';
 const icon_plus =
   '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/Path.png';
@@ -61,9 +71,9 @@ export function Home({ navigation }) {
     [navigation]
   );
 
-  const addMovieFavourites = useCallback(
+  const addMovieFavorites = useCallback(
     (item) => {
-      if (moviesFav.includes(item, 0)) {
+      if (moviesFav.includes(item)) {
         alert('ya está agregada');
       } else {
         dispatch(saveMovie(item));
@@ -87,10 +97,10 @@ export function Home({ navigation }) {
       </TouchableHighlight>
       <TouchableWithoutFeedback
         accessibilityRole="button"
-        onPress={() => addMovieFavourites(item)}
+        onPress={() => addMovieFavorites(item)}
         accessibilityIgnoresInvertColors={true}
       >
-        <Image source={addFavoritesIcon} />
+        <Image style={styles.icon_add} source={addFavoriteMovieIcon} />
       </TouchableWithoutFeedback>
     </View>
   );
@@ -109,17 +119,12 @@ export function Home({ navigation }) {
         onPress={() => removeMovieFavs(item)}
         accessibilityIgnoresInvertColors={true}
       >
-        <Image source={addFavoritesIcon} />
+        <Image style={styles.icon_add} source={addFavoriteMovieIcon} />
       </TouchableWithoutFeedback>
     </View>
   );
 
-  const headerComponent = () => <Text style={styles.listHeadLine}>{MOVIES}</Text>;
-
   const emptyComponent = () => <Text>{EMPTY_MOVIES}</Text>;
-
-  const itemSeparator = () => <View style={styles.separator} />;
-
   const removeMovieFavs = (item) => {
     dispatch(deleteMovie(item));
   };
@@ -129,34 +134,23 @@ export function Home({ navigation }) {
     (isConnected !== true && data != null && isOneDayDiff(date, new Date()))
   ) {
     return (
-      /*<FlatList
-        ListHeaderComponentStyle={styles.listHeader}
-        ListHeaderComponent={headerComponent}
-        data={data.data.results}
-        renderItem={Movie}
-        ItemSeparatorComponent={itemSeparator}
-        ListEmptyComponent={emptyComponent}
-      />*/
       <SafeAreaView style={styles.safe_area}>
         <ScrollView style={styles.container}>
           <ImageBackground
-            source={require(imgae_background)}
+            source={require(image_background)}
             style={styles.image}
             resizeMode="cover"
           >
-            <LinearGradient
-              colors={['#00000000', '#000000']}
-              style={{ height: '100%', width: '100%' }}
-            >
+            <LinearGradient colors={['#00000000', '#000000']} style={styles.gradientHeader}>
               <View style={styles.container_header_content}>
                 <View style={styles.container_type_movies_header}>
-                  <Text style={styles.text}>Kids</Text>
+                  <Text style={styles.text}>{KIDS}</Text>
                   <View style={styles.circle} />
-                  <Text style={styles.text}>Fantasy Movie</Text>
+                  <Text style={styles.text}>{FANTASY_MOVIE}</Text>
                   <View style={styles.circle} />
-                  <Text style={styles.text}>Action</Text>
+                  <Text style={styles.text}>{ACTION}</Text>
                 </View>
-                <Text style={styles.banner}>MOVY ORIGINAL</Text>
+                <Text style={styles.banner}>{MOVY_ORIGINAL}</Text>
                 <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
                   <Image
                     style={styles.plus_icon}
@@ -175,14 +169,14 @@ export function Home({ navigation }) {
                   />
                 </View>
                 <View style={styles.container_icon_text} accessibilityIgnoresInvertColors={true}>
-                  <Text style={styles.icon_text_plus}>My list</Text>
-                  <Text style={styles.icon_text_play}>Play</Text>
-                  <Text style={styles.icon_text_info}>Info</Text>
+                  <Text style={styles.icon_text_plus}>{MY_LIST}</Text>
+                  <Text style={styles.icon_text_play}>{PLAY}</Text>
+                  <Text style={styles.icon_text_info}>{INFO}</Text>
                 </View>
               </View>
             </LinearGradient>
           </ImageBackground>
-          <Text style={styles.container_title_all_movies}>{'All Movies'}</Text>
+          <Text style={styles.container_title_all_movies}>{ALL_MOVIES}</Text>
           <FlatList
             horizontal={true}
             data={data.data.results}
@@ -190,7 +184,7 @@ export function Home({ navigation }) {
             ListEmptyComponent={emptyComponent}
             style={styles.container_movies}
           />
-          <Text style={styles.container_title_all_movies}>{'My List'}</Text>
+          <Text style={styles.container_title_all_movies}>{MY_LIST}</Text>
           <FlatList
             horizontal={true}
             data={moviesFav}

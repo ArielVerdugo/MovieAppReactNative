@@ -1,6 +1,5 @@
 export { default as homeIcon } from '@/assets/ic_home/ic_home.png';
 export { default as settingsIcon } from '@/assets/ic_settings/ic_settings.png';
-export { default as favIcon } from '@/assets/ic_fav/ic_fav.png';
-export { default as addIcon } from '@/assets/ic_add/ic_add.png';
-export { default as removeIcon } from '@/assets/ic_add/ic_add.png';
-export { default as addFavoritesIcon } from '@/assets/ic_add/ic_add_favorite.png';
+export { default as favoriteIcon } from '@/assets/ic_fav/ic_fav.png';
+export { default as addFavoriteMovieIcon } from '@/assets/ic_add/add.png';
+export { default as imageBackgroundHeader } from '@/assets/img/background_home.png';

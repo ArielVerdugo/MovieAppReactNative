@@ -18,6 +18,11 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  gradientHeader: {
+    height: '100%',
+    width: '100%',
+  },
+
   item: {
     width: 120,
     height: 50,
@@ -64,7 +69,7 @@ export const styles = StyleSheet.create({
   },
 
   image: {
-    height: 400,
+    height: 500,
   },
   container_title_all_movies: {
     color: 'white',
@@ -95,7 +100,7 @@ export const styles = StyleSheet.create({
   },
 
   container_header_content: {
-    height: 170,
+    height: 190,
     position: 'absolute',
     bottom: 0,
   },
@@ -111,10 +116,10 @@ export const styles = StyleSheet.create({
     height: 8,
     borderRadius: 8 / 2,
     backgroundColor: 'white',
-    borderColor: 'black',
     fontWeight: 'bold',
     marginLeft: 35,
     borderWidth: 1,
+    marginTop: 5,
   },
 
   banner: {
@@ -123,6 +128,8 @@ export const styles = StyleSheet.create({
     paddingLeft: 60,
     paddingRight: 60,
     marginTop: 40,
+    paddingTop: 5,
+    paddingBottom: 5,
     position: 'absolute',
     color: 'rgba(5, 130, 255, 1)',
     backgroundColor: 'rgba(5, 120, 255, 0.4)',
@@ -132,7 +139,7 @@ export const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     marginLeft: 75,
-    marginTop: 70,
+    marginTop: 80,
   },
 
   plus_icon: {
@@ -162,11 +169,16 @@ export const styles = StyleSheet.create({
   icon_text_play: {
     color: 'white',
     fontSize: 12,
-    marginLeft: 60,
+    marginLeft: 55,
   },
   icon_text_info: {
     color: 'white',
     fontSize: 12,
-    marginLeft: 78,
+    marginLeft: 80,
+  },
+
+  icon_add: {
+    width: 12,
+    height: 12,
   },
 });
