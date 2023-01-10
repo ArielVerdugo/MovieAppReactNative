@@ -52,3 +52,15 @@ export const logout = () => async (dispatch, _, { demoMode, networkService }) =>
     dispatch(clearStore());
   }
 };
+
+export const generateSessionId = () => async (dispatch, _, { networkService }) => {
+  try {
+    const userController = new UserController(networkService);
+
+    const {
+      data: { guestSessionId },
+    } = await userController.getSessionId();
+  } catch ({ data }) {
+    dispatch(loginError(data?.error ?? strings.sessionId.invalidCredentials));
+  }
+};
