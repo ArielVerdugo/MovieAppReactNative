@@ -1,18 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { NAVIGATION } from '@/constants';
-import { Home, MovieDetails } from '@/screens';
+import { Favorites } from '@/screens/Favorites/Favorites';
 
 const Stack = createNativeStackNavigator();
 
-export function HomeNavigator() {
+export function FavouritesNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={NAVIGATION.home} component={Home} />
       <Stack.Screen
-        component={MovieDetails}
-        name={NAVIGATION.details}
-        options={{ title: 'Movie Detail' }}
+        name={NAVIGATION.favorites}
+        component={Favorites}
+        options={{ headerLargeTitle: true }}
       />
     </Stack.Navigator>
   );
