@@ -107,12 +107,6 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
 
-  /*text: {
-    color: 'white',
-    fontSize: 12,
-    marginLeft: 40,
-  },*/
-
   text_kids: {
     color: 'white',
     fontSize: 14,
