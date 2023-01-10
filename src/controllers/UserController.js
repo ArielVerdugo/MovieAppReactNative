@@ -38,17 +38,4 @@ export class UserController {
       url: routes.authentication.logout,
     });
   }
-  getSessionId() {
-    return this.networkService.request({
-      method: 'GET',
-      url: routes.sessionId.getSessionId,
-    });
-  }
-
-  getAccessToken() {
-    return this.networkService.request({
-      method: 'GET',
-      url: routes.onlineAuthentication.requestToken,
-    });
-  }
 }

@@ -1,30 +1,27 @@
 import { render } from '@testing-library/react-native';
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { strings } from '@/localization';
 import { Home } from '@/screens/Home/Home';
 import { withProviders } from '@/test-utils';
-import { mockGetMoviesService } from '@/mocks/mockGetMoviesService';
 
-const queryClient = new QueryClient();
-const QueryClientWrapper = ({ children }) => (
-  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-);
-
-jest.mock('@react-navigation/native', () => {
-  const navigation = jest.requireActual('@react-navigation/native');
-  return { ...navigation };
-});
+const fakeStore = {
+  error: {},
+  status: {},
+  user: {
+    username: 'johndoe',
+  },
+};
 
 describe('Home', () => {
-  it('should match the snapshot', async () => {
-    const { toJSON } = await render(
-      withProviders(
-        <QueryClientWrapper>
-          <Home />
-        </QueryClientWrapper>,
-        { networkService: mockGetMoviesService }
-      )
-    );
+  it('should match the snapshot', () => {
+    const { toJSON } = render(withProviders(<Home />, { initialState: fakeStore }));
+
     expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('should render a welcome message with the user name', () => {
+    const { getByText } = render(withProviders(<Home />, { initialState: fakeStore }));
+
+    expect(getByText(`${strings.home.message} johndoe`)).toBeTruthy();
   });
 });
