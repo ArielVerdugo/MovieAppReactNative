@@ -20,13 +20,14 @@ import { NAVIGATION } from '@/constants';
 import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
-import { addFavoriteMovieIcon, removeFavoriteMovieIcon } from '@/assets';
+import { addFavoriteMovieIcon } from '@/assets';
 import { saveMovie, deleteMovie } from '@/actions/MovieActions';
 import { isOneDayDiff } from '@/utils/utils';
 import {
   EMPTY_MOVIES,
   KIDS,
   FANTASY_MOVIE,
+  ALREADY_ADDED,
   ACTION,
   MOVY_ORIGINAL,
   MY_LIST,
@@ -74,7 +75,7 @@ export function Home({ navigation }) {
   const addMovieFavorites = useCallback(
     (item) => {
       if (moviesFav.includes(item)) {
-        alert('ya está agregada');
+        alert(ALREADY_ADDED);
       } else {
         dispatch(saveMovie(item));
       }
@@ -165,6 +166,11 @@ export function Home({ navigation }) {
                   <View style={styles.container_info_icon}>
                     <Image style={styles.info_icon} source={require(icon_info)} />
                   </View>
+                </View>
+                <View style={styles.container_icon_text}>
+                  <Text style={styles.icon_text_plus}>{MY_LIST}</Text>
+                  <Text style={styles.icon_text_play}>{PLAY}</Text>
+                  <Text style={styles.icon_text_info}>{INFO}</Text>
                 </View>
               </View>
             </LinearGradient>

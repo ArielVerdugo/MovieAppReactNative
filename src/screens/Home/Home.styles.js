@@ -54,8 +54,8 @@ export const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#000000',
     flexDirection: 'column',
+    marginBottom: 10,
   },
 
   container_items_movies: {
@@ -66,6 +66,7 @@ export const styles = StyleSheet.create({
 
   safe_area: {
     flex: 1,
+    backgroundColor: '#000000',
   },
 
   image: {
@@ -73,7 +74,7 @@ export const styles = StyleSheet.create({
   },
   container_title_all_movies: {
     color: 'white',
-    paddingTop: 10,
+    paddingTop: 50,
     paddingLeft: 40,
     fontSize: 18,
   },
@@ -114,21 +115,21 @@ export const styles = StyleSheet.create({
 
   text_kids: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
     flex: 0.2,
     textAlign: 'right',
   },
 
   textFantasy: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
     flex: 0.3,
     textAlign: 'center',
   },
 
   textAction: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
     flex: 0.2,
     textAlign: 'left',
   },
@@ -152,6 +153,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     paddingTop: 5,
+    marginLeft: 45,
+    marginRight: 45,
     paddingBottom: 5,
     color: 'rgba(5, 130, 255, 1)',
     backgroundColor: 'rgba(5, 120, 255, 0.4)',
@@ -191,25 +194,26 @@ export const styles = StyleSheet.create({
   },
 
   container_icon_text: {
-    height: 100,
     flexDirection: 'row',
-    marginTop: 12,
-    marginLeft: 85,
   },
 
   icon_text_plus: {
     color: 'white',
+    flex: 0.35,
+    textAlign: 'right',
     fontSize: 12,
   },
   icon_text_play: {
     color: 'white',
+    flex: 0.26,
+    textAlign: 'center',
     fontSize: 12,
-    marginLeft: 55,
   },
   icon_text_info: {
     color: 'white',
+    flex: 0.15,
+    textAlign: 'center',
     fontSize: 12,
-    marginLeft: 80,
   },
 
   icon_add: {
