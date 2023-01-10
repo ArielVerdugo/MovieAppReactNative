@@ -20,7 +20,13 @@ import { NAVIGATION } from '@/constants';
 import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
-import { addFavoriteMovieIcon } from '@/assets';
+import {
+  addFavoriteMovieIcon,
+  imageBackgroundHeader,
+  iconPlus,
+  iconPlay,
+  iconInfo,
+} from '@/assets';
 import { saveMovie, deleteMovie } from '@/actions/MovieActions';
 import { isOneDayDiff } from '@/utils/utils';
 import {
@@ -35,15 +41,7 @@ import {
   INFO,
   ALL_MOVIES,
 } from '@/constants/en';
-
-const image_background =
-  '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/background_home.png/';
-const icon_plus =
-  '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/Path.png';
-const icon_play =
-  '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/Shape.png';
-const icon_info =
-  '/Users/arielverdugo/ejerciciosReactNative/MovieAppReactNative/src/assets/img/Shape-3.png';
+import { gradientColorEnd, gradientColorStart } from '@/constants/gradients';
 
 export function Home({ navigation }) {
   const movieController = new MovieController(networkService);
@@ -88,7 +86,7 @@ export function Home({ navigation }) {
   }
 
   const Movie = ({ item }) => (
-    <View style={styles.container_items_movies}>
+    <View style={styles.movieListContainer}>
       <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
         <Image
           style={styles.avatar}
@@ -101,13 +99,13 @@ export function Home({ navigation }) {
         onPress={() => addMovieFavorites(item)}
         accessibilityIgnoresInvertColors={true}
       >
-        <Image style={styles.icon_add} source={addFavoriteMovieIcon} />
+        <Image style={styles.iconAdd} source={addFavoriteMovieIcon} />
       </TouchableWithoutFeedback>
     </View>
   );
 
   const MovieFavorites = ({ item }) => (
-    <View style={styles.container_items_movies}>
+    <View style={styles.movieListContainer}>
       <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
         <Image
           style={styles.avatar}
@@ -117,16 +115,16 @@ export function Home({ navigation }) {
       </TouchableHighlight>
       <TouchableWithoutFeedback
         accessibilityRole="button"
-        onPress={() => removeMovieFavs(item)}
+        onPress={() => removeMovieFromFavorites(item)}
         accessibilityIgnoresInvertColors={true}
       >
-        <Image style={styles.icon_add} source={addFavoriteMovieIcon} />
+        <Image style={styles.iconAdd} source={addFavoriteMovieIcon} />
       </TouchableWithoutFeedback>
     </View>
   );
 
   const emptyComponent = () => <Text>{EMPTY_MOVIES}</Text>;
-  const removeMovieFavs = (item) => {
+  const removeMovieFromFavorites = (item) => {
     dispatch(deleteMovie(item));
   };
 
@@ -135,61 +133,60 @@ export function Home({ navigation }) {
     (isConnected !== true && data != null && isOneDayDiff(date, new Date()))
   ) {
     return (
-      <SafeAreaView style={styles.safe_area}>
+      <SafeAreaView style={styles.safeArea}>
         <ScrollView style={styles.container}>
-          <ImageBackground
-            source={require(image_background)}
-            style={styles.image}
-            resizeMode="cover"
-          >
-            <LinearGradient colors={['#00000000', '#000000']} style={styles.gradientHeader}>
-              <View style={styles.container_header_content}>
-                <View style={styles.container_type_movies_header}>
-                  <Text style={styles.text_kids}>{KIDS}</Text>
-                  <View style={styles.content_circle}>
+          <ImageBackground source={imageBackgroundHeader} style={styles.image} resizeMode="cover">
+            <LinearGradient
+              colors={[gradientColorStart, gradientColorEnd]}
+              style={styles.gradientHeader}
+            >
+              <View style={styles.containerHeaderContent}>
+                <View style={styles.containerTypeMoviesHeader}>
+                  <Text style={styles.textKids}>{KIDS}</Text>
+                  <View style={styles.contentCircle}>
                     <View style={styles.circle} />
                   </View>
                   <Text style={styles.textFantasy}>{FANTASY_MOVIE}</Text>
-                  <View style={styles.content_circle}>
+                  <View style={styles.contentCircle}>
                     <View style={styles.circle} />
                   </View>
                   <Text style={styles.textAction}>{ACTION}</Text>
                 </View>
                 <Text style={styles.banner}>{MOVY_ORIGINAL}</Text>
-                <View style={styles.container_icons} accessibilityIgnoresInvertColors={true}>
-                  <View style={styles.container_plus_icon}>
-                    <Image style={styles.plus_icon} source={require(icon_plus)} />
+                <View style={styles.containerIcons} accessibilityIgnoresInvertColors={true}>
+                  <View style={styles.containerPlusIcon}>
+                    <Image style={styles.plusIcon} source={iconPlus} />
                   </View>
-                  <View style={styles.container_play_icon}>
-                    <Image style={styles.plus_icon} source={require(icon_play)} />
+                  <View style={styles.containerPlayIcon}>
+                    <Image style={styles.plusIcon} source={iconPlay} />
                   </View>
-                  <View style={styles.container_info_icon}>
-                    <Image style={styles.info_icon} source={require(icon_info)} />
+                  <View style={styles.containerInfoIcon}>
+                    <Image style={styles.infoIcon} source={iconInfo} />
                   </View>
                 </View>
-                <View style={styles.container_icon_text}>
-                  <Text style={styles.icon_text_plus}>{MY_LIST}</Text>
-                  <Text style={styles.icon_text_play}>{PLAY}</Text>
-                  <Text style={styles.icon_text_info}>{INFO}</Text>
+                <View style={styles.containerIconText}>
+                  <Text style={styles.iconTextPlus}>{MY_LIST}</Text>
+                  <Text style={styles.iconTextPlay}>{PLAY}</Text>
+                  <Text style={styles.iconTextInfo}>{INFO}</Text>
                 </View>
               </View>
             </LinearGradient>
           </ImageBackground>
-          <Text style={styles.container_title_all_movies}>{ALL_MOVIES}</Text>
+          <Text style={styles.containerTitleAllMovies}>{ALL_MOVIES}</Text>
           <FlatList
             horizontal={true}
             data={data.data.results}
             renderItem={Movie}
             ListEmptyComponent={emptyComponent}
-            style={styles.container_movies}
+            style={styles.containerMovies}
           />
-          <Text style={styles.container_title_all_movies}>{MY_LIST}</Text>
+          <Text style={styles.containerTitleAllMovies}>{MY_LIST}</Text>
           <FlatList
             horizontal={true}
             data={moviesFav}
             renderItem={MovieFavorites}
             ListEmptyComponent={emptyComponent}
-            style={styles.container_movies}
+            style={styles.containerMovies}
           />
         </ScrollView>
       </SafeAreaView>

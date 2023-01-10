@@ -58,13 +58,13 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  container_items_movies: {
+  movieListContainer: {
     flex: 1,
     backgroundColor: '#000000',
     flexDirection: 'column',
   },
 
-  safe_area: {
+  safeArea: {
     flex: 1,
     backgroundColor: '#000000',
   },
@@ -72,42 +72,42 @@ export const styles = StyleSheet.create({
   image: {
     height: 400,
   },
-  container_title_all_movies: {
+  containerTitleAllMovies: {
     color: 'white',
     paddingTop: 50,
     paddingLeft: 40,
     fontSize: 18,
   },
 
-  container_title_favorite_movies: {
+  containerTitleFavoriteMovies: {
     color: 'white',
     fontSize: 18,
   },
 
-  container_movies: {
+  containerMovies: {
     marginTop: 10,
     marginLeft: 35,
   },
 
-  container_text: {
+  containerText: {
     height: '10%',
     flexDirection: 'row',
     position: 'absolute',
     bottom: 30,
   },
 
-  container_type_movies_header: {
+  containerTypeMoviesHeader: {
     flexDirection: 'row',
     alignItems: 'baseline',
   },
 
-  container_header_content: {
+  containerHeaderContent: {
     position: 'absolute',
     width: '100%',
     bottom: 0,
   },
 
-  text_kids: {
+  textKids: {
     color: 'white',
     fontSize: 14,
     flex: 0.2,
@@ -128,7 +128,7 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
 
-  content_circle: {
+  contentCircle: {
     flex: 0.2,
     alignItems: 'center',
   },
@@ -154,63 +154,63 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(5, 120, 255, 0.4)',
   },
 
-  container_icons: {
+  containerIcons: {
     flexDirection: 'row',
     marginTop: 30,
   },
 
-  container_plus_icon: {
+  containerPlusIcon: {
     flex: 0.33,
     alignItems: 'flex-end',
   },
 
-  container_play_icon: {
+  containerPlayIcon: {
     flex: 0.2,
     alignItems: 'flex-end',
   },
 
-  container_info_icon: {
+  containerInfoIcon: {
     flex: 0.2,
     alignItems: 'flex-end',
   },
 
-  plus_icon: {
+  plusIcon: {
     alignContent: 'center',
   },
 
-  info_icon: {
+  infoIcon: {
     alignContent: 'center',
   },
 
-  play_icon: {
+  playIcon: {
     alignContent: 'center',
     marginLeft: 60,
   },
 
-  container_icon_text: {
+  containerIconText: {
     flexDirection: 'row',
   },
 
-  icon_text_plus: {
+  iconTextPlus: {
     color: 'white',
     flex: 0.35,
     textAlign: 'right',
     fontSize: 12,
   },
-  icon_text_play: {
+  iconTextPlay: {
     color: 'white',
     flex: 0.26,
     textAlign: 'center',
     fontSize: 12,
   },
-  icon_text_info: {
+  iconTextInfo: {
     color: 'white',
     flex: 0.15,
     textAlign: 'center',
     fontSize: 12,
   },
 
-  icon_add: {
+  iconAdd: {
     width: 12,
     height: 12,
   },
