@@ -7,8 +7,8 @@ export const movieReducer = (state = [], { payload, type }) => {
       arr.push(payload);
       return [...state, ...arr];
     case TYPES.DELETE_FAV:
-      var finalvalue = state.filter((value) => value !== payload);
-      return [...finalvalue];
+      var movies = state.filter((value) => value !== payload);
+      return [...movies];
     default:
       return state;
   }

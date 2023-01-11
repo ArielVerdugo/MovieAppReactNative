@@ -1,19 +1,47 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, FlatList, Image, ActivityIndicator, TouchableHighlight } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {
+  Text,
+  View,
+  FlatList,
+  Image,
+  ActivityIndicator,
+  TouchableHighlight,
+  ImageBackground,
+} from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '@/screens/Home/Home.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { NAVIGATION } from '@/constants';
 import { getFavoriteMovies } from '@/selectors/MovieSelectors';
 import { networkService } from '@/networking';
 import { MovieController } from '@/controllers/MovieController';
-import { addIcon } from '@/assets';
-import { saveMovie } from '@/actions/MovieActions';
+import {
+  addFavoriteMovieIcon,
+  imageBackgroundHeader,
+  iconPlus,
+  iconPlay,
+  iconInfo,
+} from '@/assets';
+import { saveMovie, deleteMovie } from '@/actions/MovieActions';
 import { isOneDayDiff } from '@/utils/utils';
-import { EMPTY_MOVIES, MOVIES } from '@/constants/en';
+import {
+  EMPTY_MOVIES,
+  KIDS,
+  FANTASY_MOVIE,
+  ALREADY_ADDED,
+  ACTION,
+  MOVY_ORIGINAL,
+  MY_LIST,
+  PLAY,
+  INFO,
+  ALL_MOVIES,
+} from '@/constants/en';
+import { gradientColorEnd, gradientColorStart } from '@/constants/gradients';
 
 export function Home({ navigation }) {
   const movieController = new MovieController(networkService);
@@ -42,10 +70,10 @@ export function Home({ navigation }) {
     [navigation]
   );
 
-  const addMovieFavourites = useCallback(
+  const addMovieFavorites = useCallback(
     (item) => {
-      if (moviesFav.includes(item, 0)) {
-        alert('ya está agregada');
+      if (moviesFav.includes(item)) {
+        alert(ALREADY_ADDED);
       } else {
         dispatch(saveMovie(item));
       }
@@ -58,44 +86,110 @@ export function Home({ navigation }) {
   }
 
   const Movie = ({ item }) => (
-    <View>
+    <View style={styles.movieListContainer}>
       <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
-        <View style={styles.item} accessibilityIgnoresInvertColors={true}>
-          <View style={styles.avatarContainer}>
-            <Image style={styles.avatar} source={{ uri: `${IMAGE_URL + item.backdropPath}` }} />
-          </View>
-          <Text style={styles.name}>{item.originalTitle}</Text>
-        </View>
+        <Image
+          style={styles.avatar}
+          accessibilityIgnoresInvertColors={true}
+          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
+        />
       </TouchableHighlight>
       <TouchableWithoutFeedback
         accessibilityRole="button"
-        onPress={() => addMovieFavourites(item)}
+        onPress={() => addMovieFavorites(item)}
         accessibilityIgnoresInvertColors={true}
       >
-        <Image source={addIcon} />
+        <Image style={styles.iconAdd} source={addFavoriteMovieIcon} />
       </TouchableWithoutFeedback>
     </View>
   );
 
-  const headerComponent = () => <Text style={styles.listHeadLine}>{MOVIES}</Text>;
+  const MovieFavorites = ({ item }) => (
+    <View style={styles.movieListContainer}>
+      <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
+        <Image
+          style={styles.avatar}
+          accessibilityIgnoresInvertColors={true}
+          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
+        />
+      </TouchableHighlight>
+      <TouchableWithoutFeedback
+        accessibilityRole="button"
+        onPress={() => removeMovieFromFavorites(item)}
+        accessibilityIgnoresInvertColors={true}
+      >
+        <Image style={styles.iconAdd} source={addFavoriteMovieIcon} />
+      </TouchableWithoutFeedback>
+    </View>
+  );
 
   const emptyComponent = () => <Text>{EMPTY_MOVIES}</Text>;
-
-  const itemSeparator = () => <View style={styles.separator} />;
+  const removeMovieFromFavorites = (item) => {
+    dispatch(deleteMovie(item));
+  };
 
   if (
     isConnected === true ||
     (isConnected !== true && data != null && isOneDayDiff(date, new Date()))
   ) {
     return (
-      <FlatList
-        ListHeaderComponentStyle={styles.listHeader}
-        ListHeaderComponent={headerComponent}
-        data={data.data.results}
-        renderItem={Movie}
-        ItemSeparatorComponent={itemSeparator}
-        ListEmptyComponent={emptyComponent}
-      />
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView style={styles.container}>
+          <ImageBackground source={imageBackgroundHeader} style={styles.image} resizeMode="cover">
+            <LinearGradient
+              colors={[gradientColorStart, gradientColorEnd]}
+              style={styles.gradientHeader}
+            >
+              <View style={styles.containerHeaderContent}>
+                <View style={styles.containerTypeMoviesHeader}>
+                  <Text style={styles.textKids}>{KIDS}</Text>
+                  <View style={styles.contentCircle}>
+                    <View style={styles.circle} />
+                  </View>
+                  <Text style={styles.textFantasy}>{FANTASY_MOVIE}</Text>
+                  <View style={styles.contentCircle}>
+                    <View style={styles.circle} />
+                  </View>
+                  <Text style={styles.textAction}>{ACTION}</Text>
+                </View>
+                <Text style={styles.banner}>{MOVY_ORIGINAL}</Text>
+                <View style={styles.containerIcons} accessibilityIgnoresInvertColors={true}>
+                  <View style={styles.containerPlusIcon}>
+                    <Image style={styles.plusIcon} source={iconPlus} />
+                  </View>
+                  <View style={styles.containerPlayIcon}>
+                    <Image style={styles.plusIcon} source={iconPlay} />
+                  </View>
+                  <View style={styles.containerInfoIcon}>
+                    <Image style={styles.infoIcon} source={iconInfo} />
+                  </View>
+                </View>
+                <View style={styles.containerIconText}>
+                  <Text style={styles.iconTextPlus}>{MY_LIST}</Text>
+                  <Text style={styles.iconTextPlay}>{PLAY}</Text>
+                  <Text style={styles.iconTextInfo}>{INFO}</Text>
+                </View>
+              </View>
+            </LinearGradient>
+          </ImageBackground>
+          <Text style={styles.containerTitleAllMovies}>{ALL_MOVIES}</Text>
+          <FlatList
+            horizontal={true}
+            data={data.data.results}
+            renderItem={Movie}
+            ListEmptyComponent={emptyComponent}
+            style={styles.containerMovies}
+          />
+          <Text style={styles.containerTitleAllMovies}>{MY_LIST}</Text>
+          <FlatList
+            horizontal={true}
+            data={moviesFav}
+            renderItem={MovieFavorites}
+            ListEmptyComponent={emptyComponent}
+            style={styles.containerMovies}
+          />
+        </ScrollView>
+      </SafeAreaView>
     );
   } else {
     return <Text>{EMPTY_MOVIES}</Text>;
