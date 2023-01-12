@@ -1,59 +1,52 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, View, FlatList, Image, TouchableHighlight } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
-import { styles } from '@/screens/Home/Home.styles';
-import { IMAGE_URL } from '@/controllers/routes';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 import { NAVIGATION } from '@/constants';
+import { styles } from '@/screens/Favorites/Favorites.styles';
+import { IMAGE_URL } from '@/controllers/routes';
 import { getFavoriteMovies } from '@/selectors/MovieSelectors';
-import { removeIcon } from '@/assets';
-import { deleteMovie } from '@/actions/MovieActions';
-import { TITLE_FAV_MOVIES, EMPTY_FAV_MOVIES } from '@/constants/en';
+import { EMPTY_FAV_MOVIES } from '@/constants/en';
 
 export function Favorites({ navigation }) {
-  const dispatch = useDispatch();
-
   const FavoriteMovie = ({ item }) => (
-    <View accessibilityIgnoresInvertColors={true}>
-      <TouchableHighlight
-        accessibilityRole="button"
-        onPress={() => navigation.navigate(NAVIGATION.details, { item: item })}
-      >
-        <View style={styles.item}>
-          <View style={styles.avatarContainer}>
-            <Image style={styles.avatar} source={{ uri: `${IMAGE_URL + item.backdropPath}` }} />
-          </View>
-          <Text style={styles.name}>{item.originalTitle}</Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableWithoutFeedback accessibilityRole="button" onPress={() => removeMovieFavs(item)}>
-        <Image source={removeIcon} />
-      </TouchableWithoutFeedback>
-    </View>
+    <TouchableHighlight
+      accessibilityRole="button"
+      style={styles.containerView}
+      onPress={() => goDetails(item)}
+    >
+      <View style={styles.image}>
+        <Image
+          style={styles.avatar}
+          accessibilityIgnoresInvertColors={true}
+          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
+        />
+      </View>
+    </TouchableHighlight>
   );
-
-  const headerComponent = () => <Text style={styles.listHeadLine}>{TITLE_FAV_MOVIES}</Text>;
 
   const emptyComponent = () => <Text>{EMPTY_FAV_MOVIES}</Text>;
 
-  const itemSeparator = () => <View style={styles.separator} />;
-
-  const removeMovieFavs = (item) => {
-    dispatch(deleteMovie(item));
-  };
-
   var moviesFav = useSelector(getFavoriteMovies);
+
+  const goDetails = useCallback(
+    (item) => {
+      navigation.navigate(NAVIGATION.details, { item: item });
+    },
+    [navigation]
+  );
 
   if (moviesFav != null) {
     return (
-      <FlatList
-        ListHeaderComponentStyle={styles.listHeader}
-        ListHeaderComponent={headerComponent}
-        data={Object.values(moviesFav)}
-        renderItem={FavoriteMovie}
-        ItemSeparatorComponent={itemSeparator}
-        ListEmptyComponent={emptyComponent}
-      />
+      <SafeAreaView style={styles.safeArea}>
+        <FlatList
+          numColumns={3}
+          data={Object.values(moviesFav)}
+          renderItem={FavoriteMovie}
+          ListEmptyComponent={emptyComponent}
+          style={styles.flatList}
+        />
+      </SafeAreaView>
     );
   }
 }

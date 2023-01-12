@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import { FavouritesNavigator } from './FavouritesNavigator';
+import { FavouritesNavigator } from './FavoritesNavigator';
 import { TabBarIcon } from '@/components';
 import { HomeNavigator } from '@/navigation/HomeNavigator';
 import { ProfileNavigator } from '@/navigation/ProfileNavigator';
