@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import { FavouritesNavigator } from './FavoritesNavigator';
+import { FavoritesNavigator } from './FavoritesNavigator';
 import { TabBarIcon } from '@/components';
 import { HomeNavigator } from '@/navigation/HomeNavigator';
 import { ProfileNavigator } from '@/navigation/ProfileNavigator';
@@ -23,7 +23,7 @@ export function AppNavigator() {
     >
       <Tab.Screen name={TABS.home} component={HomeNavigator} />
       <Tab.Screen name={TABS.profile} component={ProfileNavigator} />
-      <Tab.Screen name={TABS.favorites} component={FavouritesNavigator} />
+      <Tab.Screen name={TABS.favorites} component={FavoritesNavigator} />
     </Tab.Navigator>
   );
 }
