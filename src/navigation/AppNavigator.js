@@ -6,6 +6,7 @@ import { TabBarIcon } from '@/components';
 import { HomeNavigator } from '@/navigation/HomeNavigator';
 import { ProfileNavigator } from '@/navigation/ProfileNavigator';
 import { TABS } from '@/constants/navigation';
+import { backgroundBottomNavigation } from '@/theme/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +16,10 @@ export function AppNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        title: '',
+        tabBarStyle: {
+          backgroundColor: backgroundBottomNavigation.colors.primary,
+        },
         headerShown: false,
         tabBarActiveTintColor: colors.activeTab,
         tabBarInactiveTintColor: colors.inactiveTab,
@@ -22,8 +27,9 @@ export function AppNavigator() {
       })}
     >
       <Tab.Screen name={TABS.home} component={HomeNavigator} />
-      <Tab.Screen name={TABS.profile} component={ProfileNavigator} />
+      <Tab.Screen name={TABS.search} component={HomeNavigator} />
       <Tab.Screen name={TABS.favorites} component={FavoritesNavigator} />
+      <Tab.Screen name={TABS.profile} component={ProfileNavigator} />
     </Tab.Navigator>
   );
 }

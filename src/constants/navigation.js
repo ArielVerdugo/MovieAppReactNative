@@ -8,6 +8,7 @@ export const NAVIGATION = {
 
 export const TABS = {
   home: 'Home',
+  search: 'Find',
   profile: 'Profile',
   favorites: 'Favorites',
 };
