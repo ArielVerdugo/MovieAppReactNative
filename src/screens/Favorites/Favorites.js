@@ -31,7 +31,7 @@ export function Favorites({ navigation }) {
 
   const goDetails = useCallback(
     (item) => {
-      navigation.navigate(NAVIGATION.details, { item: item });
+      navigation.navigate(NAVIGATION.details, { item });
     },
     [navigation]
   );

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { blackColor } from '@/constants/colors';
 
 export const styles = StyleSheet.create({
   containerMovies: {
@@ -7,13 +8,13 @@ export const styles = StyleSheet.create({
 
   movieListContainer: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: blackColor,
     flexDirection: 'column',
   },
 
   safeArea: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: blackColor,
   },
 
   container: {
@@ -57,6 +58,6 @@ export const styles = StyleSheet.create({
 
   containerIcon: {
     flex: 0.1,
-    backgroundColor: '#000000',
+    backgroundColor: blackColor,
   },
 });
