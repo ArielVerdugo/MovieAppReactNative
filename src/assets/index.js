@@ -6,3 +6,4 @@ export { default as imageBackgroundHeader } from '@/assets/img/background_home.p
 export { default as iconPlus } from '@/assets/img/Path.png';
 export { default as iconPlay } from '@/assets/img/Shape.png';
 export { default as iconInfo } from '@/assets/img/Shape-3.png';
+export { default as backIcon } from '@/assets/ic_back/back.png';
