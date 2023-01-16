@@ -28,3 +28,9 @@ export const theme = {
     },
   },
 };
+
+export const backgroundBlack = {
+  colors: {
+    primary: '#000000',
+  },
+};
