@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
 
   avatar: {
     height: 180,
-    width: 125,
+    width: 115,
   },
 
   image: {
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   },
 
   flatList: {
-    marginTop: 40,
+    padding: 20,
   },
 
   containerView: {
