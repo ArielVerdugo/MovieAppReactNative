@@ -20,6 +20,9 @@ export function AppNavigator() {
         tabBarStyle: {
           backgroundColor: backgroundBottomNavigation.colors.primary,
         },
+        tabBarIconStyle: {
+          flexGrow: 0.5,
+        },
         headerShown: false,
         tabBarActiveTintColor: colors.activeTab,
         tabBarInactiveTintColor: colors.inactiveTab,
