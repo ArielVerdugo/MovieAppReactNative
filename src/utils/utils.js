@@ -8,3 +8,7 @@ export const isOneDayDiff = (a, b) => {
     return false;
   }
 };
+
+export const averageFormatt = (a) => {
+  return a * 10 + '% ';
+};
