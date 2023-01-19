@@ -34,3 +34,9 @@ export const backgroundBlack = {
     primary: '#000000',
   },
 };
+
+export const backgroundBottomNavigation = {
+  colors: {
+    primary: '#171717',
+  },
+};
