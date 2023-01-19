@@ -55,14 +55,14 @@ export const styles = StyleSheet.create({
 
   buttonReproducir: {
     height: 45,
-    borderRadius: 10,
+    borderRadius: 8,
     backgroundColor: '#e7ebda',
     margin: 10,
   },
 
   buttonDescargar: {
     height: 45,
-    borderRadius: 10,
+    borderRadius: 8,
     marginTop: 5,
     backgroundColor: '#e7ebda',
     margin: 10,
