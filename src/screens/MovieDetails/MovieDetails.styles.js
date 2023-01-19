@@ -4,11 +4,9 @@ export const styles = StyleSheet.create({
   avatar: {
     height: 300,
     width: '100%',
-    backgroundColor: '#CCC',
   },
   container: {
     flex: 1,
-    backgroundColor: '#000000',
   },
   safeArea: {
     flex: 1,
@@ -22,7 +20,6 @@ export const styles = StyleSheet.create({
   },
 
   textAverage: {
-    color: '#008000',
     fontSize: 14,
     fontWeight: 'bold',
   },
@@ -56,7 +53,6 @@ export const styles = StyleSheet.create({
   buttonReproducir: {
     height: 45,
     borderRadius: 8,
-    backgroundColor: '#e7ebda',
     margin: 10,
   },
 
@@ -64,7 +60,6 @@ export const styles = StyleSheet.create({
     height: 45,
     borderRadius: 8,
     marginTop: 5,
-    backgroundColor: '#e7ebda',
     margin: 10,
   },
 });
