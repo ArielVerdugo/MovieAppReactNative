@@ -7,7 +7,6 @@ import { IMAGE_URL } from '@/controllers/routes';
 import { Button } from '@/components';
 import { averageFormat } from '@/utils/utils';
 import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD } from '@/constants/en';
-import { textAverage, buttonDetail } from '@/theme/theme';
 
 export function MovieDetails({ route }) {
   return (
@@ -15,7 +14,7 @@ export function MovieDetails({ route }) {
       <Image
         style={styles.avatar}
         accessibilityIgnoresInvertColors={true}
-        source={{ uri: `${IMAGE_URL + route.params.item.backdropPath}` }}
+        source={{ uri: `${IMAGE_URL}${route.params.item.backdropPath}` }}
       />
       <ScrollView>
         <Text style={styles.textTtitle}>{route.params.item.originalTitle}</Text>
