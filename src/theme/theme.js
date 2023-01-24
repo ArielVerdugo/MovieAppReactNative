@@ -52,3 +52,9 @@ export const buttonDetail = {
     primary: '#e7ebda',
   },
 };
+
+export const textColor = {
+  colors: {
+    primary: '#FFFFFF',
+  },
+};

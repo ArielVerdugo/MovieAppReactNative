@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { backgroundBlack, textAverage, buttonDetail, textColor } from '@/theme/theme';
 
 export const styles = StyleSheet.create({
   avatar: {
@@ -7,13 +8,11 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-  },
-  safeArea: {
-    flex: 1,
+    backgroundColor: backgroundBlack.colors.primary,
   },
 
   textTtitle: {
-    color: 'white',
+    color: textColor.colors.primary,
     fontSize: 16,
     fontWeight: 'bold',
     margin: 10,
@@ -22,9 +21,10 @@ export const styles = StyleSheet.create({
   textAverage: {
     fontSize: 14,
     fontWeight: 'bold',
+    color: textAverage.colors.primary,
   },
 
-  textLanguaje: {
+  textLanguage: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   },
 
   textDate: {
-    color: 'white',
+    color: textColor.colors.primary,
     fontSize: 14,
     fontWeight: 'bold',
     marginLeft: 10,
@@ -45,21 +45,23 @@ export const styles = StyleSheet.create({
   },
 
   textOverview: {
-    color: 'white',
+    color: textColor.colors.primary,
     fontSize: 14,
     margin: 10,
   },
 
-  buttonReproducir: {
+  buttonPlay: {
     height: 45,
     borderRadius: 8,
     margin: 10,
+    backgroundColor: buttonDetail.colors.primary,
   },
 
-  buttonDescargar: {
+  buttonDownload: {
     height: 45,
     borderRadius: 8,
     marginTop: 5,
     margin: 10,
+    backgroundColor: buttonDetail.colors.primary,
   },
 });

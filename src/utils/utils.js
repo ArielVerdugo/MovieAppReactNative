@@ -9,6 +9,6 @@ export const isOneDayDiff = (a, b) => {
   }
 };
 
-export const averageFormatt = (a) => {
+export const averageFormat = (a) => {
   return a * 10 + '% ';
 };

@@ -5,13 +5,13 @@ import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
 import { styles } from '@/screens/MovieDetails/MovieDetails.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { Button } from '@/components';
-import { averageFormatt } from '@/utils/utils';
+import { averageFormat } from '@/utils/utils';
 import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD } from '@/constants/en';
-import { backgroundBlack, textAverage, buttonDetail } from '@/theme/theme';
+import { textAverage, buttonDetail } from '@/theme/theme';
 
 export function MovieDetails({ route }) {
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: backgroundBlack.colors.primary }]}>
+    <SafeAreaView style={styles.container}>
       <Image
         style={styles.avatar}
         accessibilityIgnoresInvertColors={true}
@@ -20,22 +20,16 @@ export function MovieDetails({ route }) {
       <ScrollView>
         <Text style={styles.textTtitle}>{route.params.item.originalTitle}</Text>
         <View style={styles.containerTextHeader}>
-          <Text style={[styles.textAverage, { color: textAverage.colors.primary }]}>
-            {averageFormatt(route.params.item.voteAverage) + MATCH_TEXT}
+          <Text style={styles.textAverage}>
+            {averageFormat(route.params.item.voteAverage) + MATCH_TEXT}
           </Text>
-          <Text style={styles.textLanguaje}>{RELEASE_TEXT}</Text>
+          <Text style={styles.textLanguage}>{RELEASE_TEXT}</Text>
           <Text style={styles.textDate}>{route.params.item.releaseDate}</Text>
         </View>
-        <TouchableHighlight
-          accessibilityRole="button"
-          style={[styles.buttonReproducir, { backgroundColor: buttonDetail.colors.primary }]}
-        >
+        <TouchableHighlight accessibilityRole="button" style={styles.buttonPlay}>
           <Button title={PLAY} />
         </TouchableHighlight>
-        <TouchableHighlight
-          accessibilityRole="button"
-          style={[styles.buttonDescargar, { backgroundColor: buttonDetail.colors.primary }]}
-        >
+        <TouchableHighlight accessibilityRole="button" style={styles.buttonDownload}>
           <Button title={DOWNLOAD} />
         </TouchableHighlight>
         <Text style={styles.textOverview}>{route.params.item.overview}</Text>
