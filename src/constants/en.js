@@ -11,3 +11,6 @@ export const MY_LIST = 'My List';
 export const PLAY = 'Play';
 export const INFO = 'Info';
 export const ALL_MOVIES = 'All Movies';
+export const MATCH_TEXT = 'coincidence';
+export const RELEASE_TEXT = 'Premier';
+export const DOWNLOAD = 'Download';

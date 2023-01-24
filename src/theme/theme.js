@@ -40,3 +40,21 @@ export const backgroundBottomNavigation = {
     primary: '#171717',
   },
 };
+
+export const textAverage = {
+  colors: {
+    primary: '#008000',
+  },
+};
+
+export const buttonDetail = {
+  colors: {
+    primary: '#e7ebda',
+  },
+};
+
+export const textColor = {
+  colors: {
+    primary: '#FFFFFF',
+  },
+};
