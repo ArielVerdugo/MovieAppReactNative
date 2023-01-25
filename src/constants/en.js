@@ -14,3 +14,4 @@ export const ALL_MOVIES = 'All Movies';
 export const MATCH_TEXT = 'coincidence';
 export const RELEASE_TEXT = 'Premier';
 export const DOWNLOAD = 'Download';
+export const RELATED = 'Related Movies';

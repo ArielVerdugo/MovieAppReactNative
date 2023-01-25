@@ -11,4 +11,11 @@ export class MovieController {
       url: routes.movies.getAllMovies,
     });
   };
+
+  getByPageMovies = (pageParam) => {
+    return this.networkService.request({
+      method: 'GET',
+      url: routes.moviesByPage.getMoviesByPage + pageParam,
+    });
+  };
 }

@@ -1,18 +1,71 @@
-import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, FlatList, ActivityIndicator, Spinner } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import React, { useCallback } from 'react';
 import { styles } from '@/screens/MovieDetails/MovieDetails.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { Button } from '@/components';
 import { averageFormat } from '@/utils/utils';
-import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD } from '@/constants/en';
+import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD, EMPTY_MOVIES, RELATED } from '@/constants/en';
+import { networkService } from '@/networking';
+import { MovieController } from '@/controllers/MovieController';
+import { NAVIGATION } from '@/constants';
 
-export function MovieDetails({ route }) {
+export function MovieDetails({ route, navigation }) {
+  const movieController = new MovieController(networkService);
+
+  const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+    ['moviesByPage'],
+    ({ pageParam = 1 }) => movieController.getByPageMovies(pageParam),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.page === lastPage.totalPages) {
+          return false;
+        }
+        return lastPage.page + 1;
+      },
+    }
+  );
+
+  const loadMore = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const goDetails = useCallback(
+    (item) => {
+      navigation.navigate(NAVIGATION.details, { item: item });
+    },
+    [navigation]
+  );
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  const emptyComponent = () => <Text style={styles.textAverage}>{EMPTY_MOVIES}</Text>;
+  const renderSpinner = () => {
+    return <Spinner color="emerald.500" size="lg" />;
+  };
+
+  const Movie = ({ item }) => (
+    <View style={styles.movieListContainer}>
+      <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
+        <Image
+          style={styles.avatar}
+          accessibilityIgnoresInvertColors={true}
+          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
+        />
+      </TouchableHighlight>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        style={styles.avatar}
+        style={styles.imageHeader}
         accessibilityIgnoresInvertColors={true}
         source={{ uri: `${IMAGE_URL}${route.params.item.backdropPath}` }}
       />
@@ -32,6 +85,16 @@ export function MovieDetails({ route }) {
           <Button title={DOWNLOAD} />
         </TouchableHighlight>
         <Text style={styles.textOverview}>{route.params.item.overview}</Text>
+        <Text style={styles.titleRecommendMovies}>{RELATED}</Text>
+        <FlatList
+          horizontal={true}
+          onEndReached={loadMore}
+          data={data.pages.map((page) => page.data.results).flat()}
+          renderItem={Movie}
+          ListEmptyComponent={emptyComponent}
+          style={styles.containerMovies}
+          ListFooterComponent={isFetchingNextPage ? renderSpinner : null}
+        />
       </ScrollView>
     </SafeAreaView>
   );

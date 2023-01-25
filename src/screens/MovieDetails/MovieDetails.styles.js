@@ -2,15 +2,33 @@ import { StyleSheet } from 'react-native';
 import { backgroundBlack, textAverage, buttonDetail, textColor } from '@/theme/theme';
 
 export const styles = StyleSheet.create({
-  avatar: {
+  imageHeader: {
     height: 300,
     width: '100%',
   },
+
+  avatar: {
+    height: 130,
+    width: 90,
+    marginLeft: 3,
+  },
+
   container: {
     flex: 1,
     backgroundColor: backgroundBlack.colors.primary,
   },
 
+  titleRecommendMovies: {
+    color: 'white',
+    margin: 10,
+    fontSize: 18,
+  },
+
+  container2: {
+    flex: 1,
+    flexDirection: 'column',
+    marginBottom: 10,
+  },
   textTtitle: {
     color: textColor.colors.primary,
     fontSize: 16,
@@ -63,5 +81,20 @@ export const styles = StyleSheet.create({
     marginTop: 5,
     margin: 10,
     backgroundColor: buttonDetail.colors.primary,
+  },
+
+  containerMovies: {
+    margin: 10,
+  },
+
+  movieListContainer: {
+    flex: 1,
+    backgroundColor: '#000000',
+    flexDirection: 'column',
+  },
+
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#000000',
   },
 });
