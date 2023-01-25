@@ -20,10 +20,10 @@ export function MovieDetails({ route, navigation }) {
     ({ pageParam = 1 }) => movieController.getByPageMovies(pageParam),
     {
       getNextPageParam: (lastPage) => {
-        if (lastPage.page === lastPage.totalPages) {
+        if (lastPage.data.page === lastPage.data.totalPages) {
           return false;
         }
-        return lastPage.page + 1;
+        return lastPage.data.page + 1;
       },
     }
   );
@@ -93,7 +93,6 @@ export function MovieDetails({ route, navigation }) {
           renderItem={Movie}
           ListEmptyComponent={emptyComponent}
           style={styles.containerMovies}
-          ListFooterComponent={isFetchingNextPage ? renderSpinner : null}
         />
       </ScrollView>
     </SafeAreaView>
