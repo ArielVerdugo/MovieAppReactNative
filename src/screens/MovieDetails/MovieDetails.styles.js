@@ -97,4 +97,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000000',
   },
+
+  spinner: {
+    color: textColor.colors.primary,
+  },
 });

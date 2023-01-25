@@ -47,7 +47,7 @@ export function MovieDetails({ route, navigation }) {
 
   const emptyComponent = () => <Text style={styles.textAverage}>{EMPTY_MOVIES}</Text>;
   const renderSpinner = () => {
-    return <Spinner color="emerald.500" size="lg" />;
+    return <Spinner style={styles.spinner} size="lg" />;
   };
 
   const Movie = ({ item }) => (
