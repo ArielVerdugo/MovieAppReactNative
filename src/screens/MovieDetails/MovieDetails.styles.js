@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
 
   titleRecommendMovies: {
-    color: 'white',
+    color: textColor.colors.primary,
     margin: 10,
     fontSize: 18,
   },
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   },
 
   textLanguage: {
-    color: 'white',
+    color: textColor.colors.primary,
     fontSize: 14,
     fontWeight: 'bold',
     marginLeft: 10,
@@ -89,13 +89,13 @@ export const styles = StyleSheet.create({
 
   movieListContainer: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: backgroundBlack.colors.primary,
     flexDirection: 'column',
   },
 
   safeArea: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: backgroundBlack.colors.primary,
   },
 
   spinner: {

@@ -1,7 +1,7 @@
 import { Text, View, Image, FlatList, ActivityIndicator, Spinner } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 import { styles } from '@/screens/MovieDetails/MovieDetails.styles';
 import { IMAGE_URL } from '@/controllers/routes';
@@ -33,6 +33,8 @@ export function MovieDetails({ route, navigation }) {
       fetchNextPage();
     }
   };
+
+  const movies = data.pages.map((page) => page.data.results).flat();
 
   const goDetails = useCallback(
     (item) => {
@@ -89,7 +91,7 @@ export function MovieDetails({ route, navigation }) {
         <FlatList
           horizontal={true}
           onEndReached={loadMore}
-          data={data.pages.map((page) => page.data.results).flat()}
+          data={movies}
           renderItem={Movie}
           ListEmptyComponent={emptyComponent}
           style={styles.containerMovies}
