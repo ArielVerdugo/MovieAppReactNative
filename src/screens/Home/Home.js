@@ -40,8 +40,10 @@ import {
   PLAY,
   INFO,
   ALL_MOVIES,
+  RELATED,
 } from '@/constants/en';
 import { gradientColorEnd, gradientColorStart } from '@/constants/gradients';
+import { useMovies } from '@/hooks/useMovies';
 
 export function Home({ navigation }) {
   const movieController = new MovieController(networkService);
@@ -50,6 +52,7 @@ export function Home({ navigation }) {
   const { isLoading, data, isError } = useQuery(['allMovies'], movieController.getMovies);
   const dispatch = useDispatch();
   const moviesFav = useSelector(getFavoriteMovies);
+  const moviesByPage = useMovies(navigation);
 
   useEffect(() => {
     if (!isError) {
@@ -81,7 +84,7 @@ export function Home({ navigation }) {
     [dispatch, moviesFav]
   );
 
-  if (isLoading) {
+  if (isLoading || moviesByPage.isLoading) {
     return <ActivityIndicator />;
   }
 
@@ -120,6 +123,18 @@ export function Home({ navigation }) {
       >
         <Image style={styles.iconAdd} source={addFavoriteMovieIcon} />
       </TouchableWithoutFeedback>
+    </View>
+  );
+
+  const MoviesPaginated = ({ item }) => (
+    <View style={styles.movieListContainer}>
+      <TouchableHighlight accessibilityRole="button" onPress={() => moviesByPage.goDetails(item)}>
+        <Image
+          style={styles.avatar}
+          accessibilityIgnoresInvertColors={true}
+          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
+        />
+      </TouchableHighlight>
     </View>
   );
 
@@ -185,6 +200,15 @@ export function Home({ navigation }) {
             horizontal={true}
             data={moviesFav}
             renderItem={MovieFavorites}
+            ListEmptyComponent={emptyComponent}
+            style={styles.containerMovies}
+          />
+          <Text style={styles.containerTitleAllMovies}>{RELATED}</Text>
+          <FlatList
+            horizontal={true}
+            onEndReached={moviesByPage.loadMore}
+            data={moviesByPage.movies}
+            renderItem={MoviesPaginated}
             ListEmptyComponent={emptyComponent}
             style={styles.containerMovies}
           />
