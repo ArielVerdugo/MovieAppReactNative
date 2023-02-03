@@ -44,6 +44,7 @@ import {
 } from '@/constants/en';
 import { gradientColorEnd, gradientColorStart } from '@/constants/gradients';
 import { useMovies } from '@/hooks/useMovies';
+import { MoviesPaginated } from '@/components/MoviesPaginated';
 
 export function Home({ navigation }) {
   const movieController = new MovieController(networkService);
@@ -126,16 +127,10 @@ export function Home({ navigation }) {
     </View>
   );
 
-  const MoviesPaginated = ({ item }) => (
-    <View style={styles.movieListContainer}>
-      <TouchableHighlight accessibilityRole="button" onPress={() => moviesByPage.goDetails(item)}>
-        <Image
-          style={styles.avatar}
-          accessibilityIgnoresInvertColors={true}
-          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
-        />
-      </TouchableHighlight>
-    </View>
+  const RelatedMovies = ({ item }) => (
+    <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
+      <MoviesPaginated movie={item} />
+    </TouchableHighlight>
   );
 
   const emptyComponent = () => <Text>{EMPTY_MOVIES}</Text>;
@@ -208,7 +203,7 @@ export function Home({ navigation }) {
             horizontal={true}
             onEndReached={moviesByPage.loadMore}
             data={moviesByPage.movies}
-            renderItem={MoviesPaginated}
+            renderItem={RelatedMovies}
             ListEmptyComponent={emptyComponent}
             style={styles.containerMovies}
           />

@@ -6,7 +6,6 @@ import { NAVIGATION } from '@/constants';
 
 export const useMovies = (navigation) => {
   const movieController = new MovieController(networkService);
-  var movies;
   const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ['moviesByPage'],
     ({ pageParam = 1 }) => movieController.getByPageMovies(pageParam),

@@ -1,13 +1,14 @@
-import { Text, View, Image, FlatList, ActivityIndicator, Spinner } from 'react-native';
+import { Text, View, Image, FlatList, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { styles } from '@/screens/MovieDetails/MovieDetails.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { Button } from '@/components';
 import { averageFormat } from '@/utils/utils';
 import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD, EMPTY_MOVIES, RELATED } from '@/constants/en';
 import { useMovies } from '@/hooks/useMovies';
+import { MoviesPaginated } from '@/components/MoviesPaginated';
 
 export function MovieDetails({ route, navigation }) {
   const moviesByPage = useMovies(navigation);
@@ -19,15 +20,9 @@ export function MovieDetails({ route, navigation }) {
   const emptyComponent = () => <Text style={styles.textAverage}>{EMPTY_MOVIES}</Text>;
 
   const Movie = ({ item }) => (
-    <View style={styles.movieListContainer}>
-      <TouchableHighlight accessibilityRole="button" onPress={() => moviesByPage.goDetails(item)}>
-        <Image
-          style={styles.avatar}
-          accessibilityIgnoresInvertColors={true}
-          source={{ uri: `${IMAGE_URL + item.backdropPath}` }}
-        />
-      </TouchableHighlight>
-    </View>
+    <TouchableHighlight accessibilityRole="button" onPress={() => moviesByPage.goDetails(item)}>
+      <MoviesPaginated movie={item} />
+    </TouchableHighlight>
   );
 
   return (
