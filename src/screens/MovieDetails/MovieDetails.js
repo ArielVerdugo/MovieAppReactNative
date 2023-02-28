@@ -1,7 +1,7 @@
 import { Text, View, Image, FlatList, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
-import React from 'react';
+import { ScrollView, TouchableHighlight, RefreshControl } from 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
 import { styles } from '@/screens/MovieDetails/MovieDetails.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { Button } from '@/components';
@@ -10,8 +10,9 @@ import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD, EMPTY_MOVIES, RELATED } from 
 import { useMovies } from '@/hooks/useMovies';
 import { MoviesPaginated } from '@/components/MoviesPaginated';
 
+//sacart navigation y route
 export function MovieDetails({ route, navigation }) {
-  const moviesByPage = useMovies(navigation);
+  var moviesByPage = useMovies(navigation);
 
   if (moviesByPage.isLoading) {
     return <ActivityIndicator />;
@@ -32,7 +33,15 @@ export function MovieDetails({ route, navigation }) {
         accessibilityIgnoresInvertColors={true}
         source={{ uri: `${IMAGE_URL}${route.params.item.backdropPath}` }}
       />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            enabled={true}
+            refreshing={moviesByPage.isLoading}
+            onRefresh={moviesByPage.fetchNextPage}
+          />
+        }
+      >
         <Text style={styles.textTtitle}>{route.params.item.originalTitle}</Text>
         <View style={styles.containerTextHeader}>
           <Text style={styles.textAverage}>

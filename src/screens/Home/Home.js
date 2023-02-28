@@ -204,6 +204,8 @@ export function Home({ navigation }) {
             onEndReached={moviesByPage.loadMore}
             data={moviesByPage.movies}
             renderItem={RelatedMovies}
+            extraData={moviesByPage.isLoading}
+            keyExtractor={(item, index) => index.toString()}
             ListEmptyComponent={emptyComponent}
             style={styles.containerMovies}
           />

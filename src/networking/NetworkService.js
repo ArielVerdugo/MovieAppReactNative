@@ -1,5 +1,6 @@
 import axios from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
+import { Config } from 'react-native-config';
 import { baseURL, headers } from '@/networking/config';
 import { resInterceptor } from '@/networking/interceptors';
 

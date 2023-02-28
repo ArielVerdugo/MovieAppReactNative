@@ -1,12 +1,22 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { MovieController } from '@/controllers/MovieController';
 import { networkService } from '@/networking';
 import { NAVIGATION } from '@/constants';
 
+const movieController = new MovieController(networkService);
+
 export const useMovies = (navigation) => {
-  const movieController = new MovieController(networkService);
-  const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+  const [movies, setMovies] = useState([]);
+  let page;
+  const {
+    isLoading,
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteQuery(
     ['moviesByPage'],
     ({ pageParam = 1 }) => movieController.getByPageMovies(pageParam),
     {
@@ -14,20 +24,23 @@ export const useMovies = (navigation) => {
         if (lastPage.data.page === lastPage.data.totalPages) {
           return false;
         }
+        page = lastPage.data.page;
         return lastPage.data.page + 1;
       },
     }
   );
 
-  if (!isLoading) {
-    movies = data.pages.map((page) => page.data.results).flat();
-  }
+  useEffect(() => {
+    if (!isLoading) {
+      setMovies([...movies, ...data.pages[page - 1].data.results]);
+    }
+  }, [data]);
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     if (hasNextPage) {
       fetchNextPage();
     }
-  };
+  }, [hasNextPage, fetchNextPage]);
 
   const goDetails = useCallback(
     (item) => {
@@ -45,5 +58,6 @@ export const useMovies = (navigation) => {
     isFetchingNextPage,
     loadMore,
     goDetails,
+    refetch,
   };
 };
