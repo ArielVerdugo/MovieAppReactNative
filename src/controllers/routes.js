@@ -6,10 +6,10 @@ export const routes = {
     logout: '/users/logout',
   },
   movies: {
-    getAllMovies: 'discover/movie?api_key=',
+    getAllMovies: Config.API_BASE_URL + 'discover/movie?api_key=' + Config.API_KEY,
   },
   moviesByPage: {
-    getMoviesByPage: '&page=',
+    getMoviesByPage: Config.API_BASE_URL + 'discover/movie?api_key=' + Config.API_KEY + '&page=',
   },
 };
 

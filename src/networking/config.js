@@ -4,5 +4,4 @@ export const baseURL = Config.API_BASE_URL;
 
 export const headers = {
   'Content-Type': 'application/json',
-  Authorization: Config.API_KEY,
 };
