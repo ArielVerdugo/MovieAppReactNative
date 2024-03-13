@@ -1,18 +1,34 @@
-import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, FlatList, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
+import React from 'react';
 import { styles } from '@/screens/MovieDetails/MovieDetails.styles';
 import { IMAGE_URL } from '@/controllers/routes';
 import { Button } from '@/components';
 import { averageFormat } from '@/utils/utils';
-import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD } from '@/constants/en';
+import { MATCH_TEXT, RELEASE_TEXT, PLAY, DOWNLOAD, EMPTY_MOVIES, RELATED } from '@/constants/en';
+import { useMovies } from '@/hooks/useMovies';
+import { MoviesPaginated } from '@/components/MoviesPaginated';
 
-export function MovieDetails({ route }) {
+export function MovieDetails({ route, navigation }) {
+  const moviesByPage = useMovies(navigation);
+
+  if (moviesByPage.isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  const emptyComponent = () => <Text style={styles.textAverage}>{EMPTY_MOVIES}</Text>;
+
+  const Movie = ({ item }) => (
+    <TouchableHighlight accessibilityRole="button" onPress={() => moviesByPage.goDetails(item)}>
+      <MoviesPaginated movie={item} />
+    </TouchableHighlight>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        style={styles.avatar}
+        style={styles.imageHeader}
         accessibilityIgnoresInvertColors={true}
         source={{ uri: `${IMAGE_URL}${route.params.item.backdropPath}` }}
       />
@@ -32,6 +48,15 @@ export function MovieDetails({ route }) {
           <Button title={DOWNLOAD} />
         </TouchableHighlight>
         <Text style={styles.textOverview}>{route.params.item.overview}</Text>
+        <Text style={styles.titleRecommendMovies}>{RELATED}</Text>
+        <FlatList
+          horizontal={true}
+          onEndReached={moviesByPage.loadMore}
+          data={moviesByPage.movies}
+          renderItem={Movie}
+          ListEmptyComponent={emptyComponent}
+          style={styles.containerMovies}
+        />
       </ScrollView>
     </SafeAreaView>
   );

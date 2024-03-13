@@ -40,8 +40,11 @@ import {
   PLAY,
   INFO,
   ALL_MOVIES,
+  RELATED,
 } from '@/constants/en';
 import { gradientColorEnd, gradientColorStart } from '@/constants/gradients';
+import { useMovies } from '@/hooks/useMovies';
+import { MoviesPaginated } from '@/components/MoviesPaginated';
 
 export function Home({ navigation }) {
   const movieController = new MovieController(networkService);
@@ -50,6 +53,7 @@ export function Home({ navigation }) {
   const { isLoading, data, isError } = useQuery(['allMovies'], movieController.getMovies);
   const dispatch = useDispatch();
   const moviesFav = useSelector(getFavoriteMovies);
+  const moviesByPage = useMovies(navigation);
 
   useEffect(() => {
     if (!isError) {
@@ -81,7 +85,7 @@ export function Home({ navigation }) {
     [dispatch, moviesFav]
   );
 
-  if (isLoading) {
+  if (isLoading || moviesByPage.isLoading) {
     return <ActivityIndicator />;
   }
 
@@ -121,6 +125,12 @@ export function Home({ navigation }) {
         <Image style={styles.iconAdd} source={addFavoriteMovieIcon} />
       </TouchableWithoutFeedback>
     </View>
+  );
+
+  const RelatedMovies = ({ item }) => (
+    <TouchableHighlight accessibilityRole="button" onPress={() => goDetails(item)}>
+      <MoviesPaginated movie={item} />
+    </TouchableHighlight>
   );
 
   const emptyComponent = () => <Text>{EMPTY_MOVIES}</Text>;
@@ -185,6 +195,15 @@ export function Home({ navigation }) {
             horizontal={true}
             data={moviesFav}
             renderItem={MovieFavorites}
+            ListEmptyComponent={emptyComponent}
+            style={styles.containerMovies}
+          />
+          <Text style={styles.containerTitleAllMovies}>{RELATED}</Text>
+          <FlatList
+            horizontal={true}
+            onEndReached={moviesByPage.loadMore}
+            data={moviesByPage.movies}
+            renderItem={RelatedMovies}
             ListEmptyComponent={emptyComponent}
             style={styles.containerMovies}
           />
